@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>القاموس السيبراني التفاعلي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --bg:#06140d;--bg2:#0b2418;--card:#10281c;--card2:#143823;
+  --text:#f5fff8;--muted:#c9d8cf;--border:#2f6b49;
+  --accent:#22c55e;--accent2:#86efac;--base-font:18px;
+}
+.light{
+  --bg:#f7fff9;--bg2:#eefcf3;--card:#fff;--card2:#f5fff8;
+  --text:#0b1f13;--muted:#26352b;--border:#9fd8b3;
+  --accent:#15803d;--accent2:#166534;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Tahoma,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg),var(--bg2));
+  color:var(--text);font-size:var(--base-font);line-height:1.8;
+}
+.topbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(6,20,13,.85);border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:1200px;margin:auto;padding:14px 20px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.logo{font-weight:bold;color:var(--accent2);font-size:22px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+button,.main-btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#052e13;border:none;padding:13px 20px;border-radius:14px;
+  cursor:pointer;font-weight:bold;text-decoration:none;display:inline-block;
+}
+.hero,.section{
+  max-width:1100px;margin:30px auto;padding:35px 25px;
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--border);border-radius:30px;
+}
+.hero{text-align:center}
+.hero h1{font-size:42px;color:var(--accent2);margin:0}
+.hero p{color:var(--muted);font-size:21px}
+.container{max-width:1100px;margin:auto;padding:0 20px}
+.section h2{color:var(--accent2);margin-top:0}
+.ai-box,.controls{display:flex;gap:14px;flex-wrap:wrap}
+input,select{
+  flex:1;min-width:230px;padding:16px;border-radius:16px;
+  border:1px solid var(--border);background:rgba(255,255,255,.06);
+  color:var(--text);font-size:18px;
+}
+#aiAnswer{background:rgba(255,255,255,.06);padding:18px;border-radius:16px}
+.alphabet-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.letter-btn{
+  min-width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  color:var(--text);border:1px solid var(--border);
+}
+.light .topbar,.light .hero,.light .section{background:#fff!important;color:#0b1f13}
+.light .hero p,.light #aiAnswer{color:#26352b}
+.light input,.light select{background:#fff;color:#0b1f13}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="nav">
+    <div class="logo">🛡️ Cyber Glossary</div>
+    <div class="tools">
+      <a class="main-btn" href="about.html">عن المشروع</a>
+      <button onclick="toggleTheme()">🌙 الوضع</button>
+      <button onclick="increaseFont()">A+</button>
+      <button onclick="decreaseFont()">A-</button>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <h1>القاموس السيبراني التفاعلي</h1>
+  <p>منصة تعليمية لفهم مصطلحات الأمن السيبراني من خلال البحث، الأمثلة، الحلول، والمساعد الذكي.</p>
+  <br>
+  <a class="main-btn" href="terms.html">عرض جميع المصطلحات</a>
+</section>
+
+<div class="container">
+
+  <div class="section">
+    <h2>🧠 Smart AI Assistant</h2>
+    <div class="ai-box">
+      <input id="aiQuestion" type="text" placeholder="اكتب كلمة فقط مثل: فيروس أو Phishing">
+      <button onclick="askAI()">إرسال</button>
+    </div>
+    <p id="aiAnswer">اكتب المصطلح وسيتم شرحه تلقائيًا.</p>
+  </div>
+
+  <div class="section">
+    <h2>🔍 البحث السريع</h2>
+    <div class="controls">
+      <input id="searchInput" type="text" placeholder="ابحث عن مصطلح...">
+      <select id="categoryFilter"><option value="">كل الفئات</option></select>
+      <select id="levelFilter"><option value="">كل المستويات</option></select>
+      <button onclick="goToTerms()">بحث</button>
+    </div>
+
+    <div class="alphabet-bar" id="alphabetBar"></div>
+  </div>
+
+</div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwEZR2hd5RJYdmk2mVGLgQjbVpc-28v_Gabhcuk4zvit7tspvyHYJgbrN1UcN0jqGoX/exec";
+const N8N_WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+
+let allTerms=[];
+let fontSize=18;
+
+function levelToArabic(level){
+  return level==="beginner"?"للمبتدئين":
+         level==="intermediate"?"خبرة متوسطة":
+         level==="advanced"?"خبرة متقدمة":level;
+}
+
+async function askAI(){
+  const q=document.getElementById("aiQuestion").value.trim();
+  const box=document.getElementById("aiAnswer");
+
+  if(!q){box.innerText="اكتب كلمة أولاً.";return;}
+
+  box.innerText="جاري المعالجة...";
+
+  const smartPrompt=`عرّف هذا المصطلح في الأمن السيبراني بشكل مبسط وبالعربية، ثم أعط مثالًا وحلًا مختصرًا إن وجد: ${q}`;
+
+  try{
+    const response=await fetch(N8N_WEBHOOK_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:smartPrompt,question:smartPrompt,query:q})
+    });
+
+    const data=await response.json();
+    box.innerText=data.reply||data.answer||data.message||data.text||data.output||JSON.stringify(data);
+  }catch{
+    box.innerText="تعذر الاتصال بالمساعد الذكي.";
+  }
+}
+
+async function loadFilters(){
+  const res=await fetch(API_URL);
+  const data=await res.json();
+  allTerms=Array.isArray(data)?data:data.data;
+
+  const category=document.getElementById("categoryFilter");
+  const level=document.getElementById("levelFilter");
+
+  [...new Set(allTerms.map(x=>x.category).filter(Boolean))]
+  .forEach(c=>category.innerHTML+=`<option value="${c}">${c}</option>`);
+
+  [...new Set(allTerms.map(x=>x.difficulty_level).filter(Boolean))]
+  .forEach(l=>level.innerHTML+=`<option value="${l}">${levelToArabic(l)}</option>`);
+
+  createAlphabetBar();
+}
+
+function createAlphabetBar(){
+  const letters=["ا","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","هـ","و","ي"];
+  const container=document.getElementById("alphabetBar");
+
+  letters.forEach(letter=>{
+    const btn=document.createElement("button");
+    btn.className="letter-btn";
+    btn.innerText=letter;
+    btn.onclick=()=>{location.href=`terms.html?letter=${encodeURIComponent(letter)}`};
+    container.appendChild(btn);
+  });
+}
+
+function goToTerms(){
+  const q=document.getElementById("searchInput").value.trim();
+  const cat=document.getElementById("categoryFilter").value;
+  const lvl=document.getElementById("levelFilter").value;
+
+  location.href=`terms.html?q=${encodeURIComponent(q)}&cat=${encodeURIComponent(cat)}&lvl=${encodeURIComponent(lvl)}`;
+}
+
+function toggleTheme(){document.body.classList.toggle("light")}
+function increaseFont(){if(fontSize<24){fontSize+=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
+function decreaseFont(){if(fontSize>14){fontSize-=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
+
+loadFilters();
+</script>
+
+</body>
+</html>

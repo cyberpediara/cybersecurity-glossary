@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>بطاقات المصطلحات</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --bg:#06140d;--bg2:#0b2418;--card:#10281c;--card2:#143823;
+  --text:#f5fff8;--muted:#c9d8cf;--border:#2f6b49;
+  --accent:#22c55e;--accent2:#86efac;--base-font:18px;
+}
+.light{
+  --bg:#f7fff9;--bg2:#eefcf3;--card:#fff;--card2:#f5fff8;
+  --text:#0b1f13;--muted:#26352b;--border:#9fd8b3;
+  --accent:#15803d;--accent2:#166534;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Tahoma,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg),var(--bg2));
+  color:var(--text);font-size:var(--base-font);line-height:1.8;
+}
+.topbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(6,20,13,.85);border-bottom:1px solid var(--border);
+}
+.nav{
+  max-width:1200px;margin:auto;padding:14px 20px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.logo{font-weight:bold;color:var(--accent2);font-size:22px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+button,a.btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#052e13;border:none;padding:11px 16px;border-radius:14px;
+  cursor:pointer;font-weight:bold;text-decoration:none;
+}
+.container{max-width:1200px;margin:30px auto;padding:0 20px}
+.controls,.stats-box,.card{
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--border);border-radius:24px;
+}
+.controls{padding:22px;margin-bottom:20px;display:flex;gap:14px;flex-wrap:wrap}
+input,select{
+  flex:1;min-width:230px;padding:16px;border-radius:16px;
+  border:1px solid var(--border);background:rgba(255,255,255,.06);
+  color:var(--text);font-size:18px;
+}
+.stats-box{padding:18px;margin-bottom:20px;text-align:center;color:var(--accent2);font-weight:bold}
+.alphabet-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:25px}
+.letter-btn{
+  min-width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  color:var(--text);border:1px solid var(--border);
+}
+.letter-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#052e13}
+#termsContainer{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.card{padding:24px;border-right:5px solid var(--accent)}
+.card h3{margin:0 0 12px;color:var(--accent2)}
+.card p{margin:10px 0;color:var(--muted)}
+.card strong{color:var(--text)}
+.tag{display:inline-block;border:1px solid var(--accent2);padding:6px 14px;border-radius:30px;margin:5px}
+.no-results{grid-column:1/-1;text-align:center;padding:35px;background:var(--card);border-radius:22px}
+.modal{
+  display:none;position:fixed;z-index:9999;left:0;top:0;width:100%;height:100%;
+  background:rgba(0,0,0,.75);
+}
+.modal-content{
+  background:#fff;color:#102016;width:85%;max-width:850px;
+  margin:5% auto;padding:28px;border-radius:22px;max-height:85vh;overflow:auto;
+}
+.close{float:left;font-size:34px;cursor:pointer;font-weight:bold}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.light .topbar,.light .controls,.light .stats-box,.light .card{background:#fff!important;color:#0b1f13}
+.light .card p{color:#26352b}
+.light input,.light select{background:#fff;color:#0b1f13}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="nav">
+    <div class="logo">🛡️ بطاقات المصطلحات</div>
+    <div class="tools">
+      <a class="btn" href="index.html">الرئيسية</a>
+      <a class="btn" href="about.html">عن المشروع</a>
+      <button onclick="exportPDF()">📄 PDF</button>
+      <button onclick="toggleTheme()">🌙 الوضع</button>
+      <button onclick="increaseFont()">A+</button>
+      <button onclick="decreaseFont()">A-</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="controls">
+  <input id="searchInput" type="text" placeholder="🔍 ابحث عن مصطلح...">
+  <select id="categoryFilter"><option value="">كل الفئات</option></select>
+  <select id="levelFilter"><option value="">كل المستويات</option></select>
+</div>
+
+<div class="alphabet-bar" id="alphabetBar"></div>
+
+<div id="stats" class="stats-box">جاري تحميل البيانات...</div>
+
+<div id="termsContainer"></div>
+
+</div>
+
+<div id="termModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwEZR2hd5RJYdmk2mVGLgQjbVpc-28v_Gabhcuk4zvit7tspvyHYJgbrN1UcN0jqGoX/exec";
+
+let allTerms=[];
+let selectedLetter="";
+let fontSize=18;
+
+function levelToArabic(level){
+  return level==="beginner"?"للمبتدئين":
+         level==="intermediate"?"خبرة متوسطة":
+         level==="advanced"?"خبرة متقدمة":level||"—";
+}
+
+function getRiskLevel(category){
+  const c=(category||"").toLowerCase();
+  if(c.includes("attack")||c.includes("هجوم")||c.includes("هجمات")) return "🔴 عالي";
+  if(c.includes("threat")||c.includes("malware")||c.includes("تهديد")) return "🟡 متوسط";
+  if(c.includes("protection")||c.includes("حماية")||c.includes("security")) return "🟢 منخفض";
+  return "🟡 متوسط";
+}
+
+function getTermIcon(category){
+  const c=(category||"").toLowerCase();
+  if(c.includes("malware")||c.includes("برمجيات")) return "🦠";
+  if(c.includes("network")||c.includes("شبكات")) return "🌐";
+  if(c.includes("attack")||c.includes("هجوم")||c.includes("هجمات")) return "⚠️";
+  if(c.includes("protection")||c.includes("حماية")) return "🛡️";
+  if(c.includes("encryption")||c.includes("تشفير")) return "🔐";
+  return "📘";
+}
+
+async function fetchTerms(){
+  const res=await fetch(API_URL);
+  const data=await res.json();
+  allTerms=Array.isArray(data)?data:data.data;
+  if(!Array.isArray(allTerms)) allTerms=[];
+
+  populateFilters();
+  createAlphabetBar();
+  readURLParams();
+  applyFilters();
+}
+
+function populateFilters(){
+  const category=document.getElementById("categoryFilter");
+  const level=document.getElementById("levelFilter");
+
+  category.innerHTML='<option value="">كل الفئات</option>';
+  level.innerHTML='<option value="">كل المستويات</option>';
+
+  [...new Set(allTerms.map(x=>x.category).filter(Boolean))]
+  .forEach(c=>category.innerHTML+=`<option value="${c}">${c}</option>`);
+
+  [...new Set(allTerms.map(x=>x.difficulty_level).filter(Boolean))]
+  .forEach(l=>level.innerHTML+=`<option value="${l}">${levelToArabic(l)}</option>`);
+}
+
+function createAlphabetBar(){
+  const letters=["ا","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","هـ","و","ي"];
+  const container=document.getElementById("alphabetBar");
+  container.innerHTML="";
+
+  const allBtn=document.createElement("button");
+  allBtn.className="letter-btn active";
+  allBtn.innerText="الكل";
+  allBtn.dataset.letter="";
+  allBtn.onclick=()=>setLetter("");
+  container.appendChild(allBtn);
+
+  letters.forEach(letter=>{
+    const btn=document.createElement("button");
+    btn.className="letter-btn";
+    btn.innerText=letter;
+    btn.dataset.letter=letter;
+    btn.onclick=()=>setLetter(letter);
+    container.appendChild(btn);
+  });
+}
+
+function readURLParams(){
+  const params=new URLSearchParams(location.search);
+  document.getElementById("searchInput").value=params.get("q")||"";
+  document.getElementById("categoryFilter").value=params.get("cat")||"";
+  document.getElementById("levelFilter").value=params.get("lvl")||"";
+  selectedLetter=params.get("letter")||"";
+}
+
+function setLetter(letter){
+  selectedLetter=letter;
+  document.querySelectorAll(".letter-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.letter===letter);
+  });
+  applyFilters();
+}
+
+function speakEnglish(text){
+  if(!text)return;
+  window.speechSynthesis.cancel();
+  const speech=new SpeechSynthesisUtterance(text);
+  speech.lang="en-US";
+  speech.rate=0.85;
+  window.speechSynthesis.speak(speech);
+}
+
+function speakArabic(text){
+  if(!text)return;
+  window.speechSynthesis.cancel();
+  const speech=new SpeechSynthesisUtterance(text);
+  speech.lang="ar-SA";
+  speech.rate=0.9;
+  window.speechSynthesis.speak(speech);
+}
+
+function copyTerm(term, definition){
+  const text=`${term}\n${definition}`;
+  navigator.clipboard.writeText(text);
+  alert("تم نسخ المصطلح");
+}
+
+function openModal(index){
+  const item=allTerms[index];
+  document.getElementById("modalBody").innerHTML=`
+    <h2>${getTermIcon(item.category)} ${item.english_term||"—"}</h2>
+    <p><strong>المصطلح بالعربي:</strong> ${item.arabic_term||"—"}</p>
+    <p><strong>التعريف:</strong> ${item.definition_ar||"—"}</p>
+    <p><strong>مثال:</strong> ${item.example_ar||"—"}</p>
+    <p><strong>الحل:</strong> ${item.solution_ar||"—"}</p>
+    <p><strong>جهة التواصل:</strong> ${item.contact_authori||item.contact_authority||"—"}</p>
+    <p><strong>مستوى الخبرة:</strong> ${levelToArabic(item.difficulty_level)}</p>
+    <p><strong>مستوى الخطر:</strong> ${getRiskLevel(item.category)}</p>
+    <p><strong>الكلمات المفتاحية:</strong> ${item.keywords||"—"}</p>
+    <p><strong>مصطلحات مرتبطة:</strong> ${item.related_terms||"—"}</p>
+    <p><strong>المصدر:</strong> ${item.source||"—"}</p>
+  `;
+  document.getElementById("termModal").style.display="block";
+}
+
+function closeModal(){document.getElementById("termModal").style.display="none"}
+
+function renderTerms(list){
+  const container=document.getElementById("termsContainer");
+  container.innerHTML="";
+
+  if(!list.length){
+    container.innerHTML='<div class="no-results">لا توجد نتائج مطابقة.</div>';
+    return;
+  }
+
+  list.forEach(item=>{
+    const index=allTerms.indexOf(item);
+    const english=item.english_term||"—";
+    const arabic=item.arabic_term||"—";
+    const definition=item.definition_ar||"—";
+    const safeEnglish=String(english).replace(/'/g,"\\'");
+    const safeArabic=String(arabic).replace(/'/g,"\\'");
+
+    container.innerHTML+=`
+    <div class="card">
+      <h3>${getTermIcon(item.category)} ${english}</h3>
+      <p><strong>المصطلح بالعربي:</strong> ${arabic}</p>
+      <p><strong>التعريف:</strong> ${definition}</p>
+      <p><strong>مثال:</strong> ${item.example_ar||"—"}</p>
+      <p><strong>الحل:</strong> ${item.solution_ar||"—"}</p>
+      <p><strong>مستوى الخطر:</strong> ${getRiskLevel(item.category)}</p>
+
+      <p>
+        <span class="tag">${levelToArabic(item.difficulty_level)}</span>
+        <span class="tag">${item.category||"—"}</span>
+      </p>
+
+      <div class="card-actions">
+        <button onclick="openModal(${index})">عرض التفاصيل</button>
+        <button onclick="copyTerm('${safeEnglish}','${definition.replace(/'/g,"\\'")}')">📋 نسخ</button>
+        <button onclick="speakEnglish('${safeEnglish}')">🔊 EN</button>
+        <button onclick="speakArabic('${safeArabic}')">🔊 AR</button>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById("stats").innerText=
+    `عدد المصطلحات المعروضة: ${list.length} | إجمالي المصطلحات: ${allTerms.length}`;
+}
+
+function applyFilters(){
+  const search=document.getElementById("searchInput").value.toLowerCase().trim();
+  const category=document.getElementById("categoryFilter").value;
+  const level=document.getElementById("levelFilter").value;
+
+  const filtered=allTerms.filter(item=>{
+    const english=(item.english_term||"").toLowerCase();
+    const arabic=(item.arabic_term||"").toLowerCase();
+    const definition=(item.definition_ar||"").toLowerCase();
+    const keywords=(item.keywords||"").toLowerCase();
+
+    return(
+      (!search||english.includes(search)||arabic.includes(search)||definition.includes(search)||keywords.includes(search)) &&
+      (!category||item.category===category) &&
+      (!level||item.difficulty_level===level) &&
+      (!selectedLetter||arabic.startsWith(selectedLetter))
+    );
+  });
+
+  renderTerms(filtered);
+}
+
+function exportPDF(){
+  const element=document.getElementById("termsContainer");
+  html2pdf().from(element).save("Cybersecurity-Terms.pdf");
+}
+
+function toggleTheme(){document.body.classList.toggle("light")}
+function increaseFont(){if(fontSize<24){fontSize+=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
+function decreaseFont(){if(fontSize>14){fontSize-=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
+
+document.getElementById("searchInput").addEventListener("input",applyFilters);
+document.getElementById("categoryFilter").addEventListener("change",applyFilters);
+document.getElementById("levelFilter").addEventListener("change",applyFilters);
+
+fetchTerms();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</body>
+</html>
