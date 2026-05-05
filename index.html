@@ -2,140 +2,220 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Cyber Glossary</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قاموس الأمن السيبراني</title>
+
 <style>
-:root{--bg:#06140d;--bg2:#0b2418;--card:#10281c;--card2:#143823;--text:#f5fff8;--muted:#c9d8cf;--border:#2f6b49;--accent:#22c55e;--accent2:#86efac;--base-font:18px}
-.light{--bg:#f7fff9;--bg2:#eefcf3;--card:#fff;--card2:#f5fff8;--text:#0b1f13;--muted:#26352b;--border:#9fd8b3;--accent:#15803d;--accent2:#166534}
-*{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text);font-size:var(--base-font);line-height:1.8}
-.topbar{position:sticky;top:0;z-index:1000;background:rgba(6,20,13,.88);border-bottom:1px solid var(--border)}
-.nav{max-width:1200px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{font-weight:bold;color:var(--accent2);font-size:22px}
-.tools{display:flex;gap:8px;flex-wrap:wrap}
-button,.main-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#052e13;border:none;padding:13px 20px;border-radius:14px;cursor:pointer;font-weight:bold;text-decoration:none;display:inline-block}
-.hero,.section{max-width:1100px;margin:30px auto;padding:35px 25px;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:30px}
-.hero{text-align:center}
-.hero h1{font-size:42px;color:var(--accent2);margin:0}
-.hero p{color:var(--muted);font-size:21px}
-.container{max-width:1100px;margin:auto;padding:0 20px}
-.section h2{color:var(--accent2);margin-top:0}
-.ai-box,.controls{display:flex;gap:14px;flex-wrap:wrap}
-input,select{flex:1;min-width:230px;padding:16px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text);font-size:18px}
-#aiAnswer{background:rgba(255,255,255,.06);padding:18px;border-radius:16px}
-.alphabet-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
-.letter-btn{min-width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--card),var(--card2));color:var(--text);border:1px solid var(--border)}
-.light .topbar,.light .hero,.light .section{background:#fff!important;color:#0b1f13}
-.light .hero p,.light #aiAnswer{color:#26352b}
-.light input,.light select{background:#fff;color:#0b1f13}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
+body{background:#f1f5f9;color:#0b1f33;line-height:2}
+body.dark{background:#0b1f33;color:#f8fafc}
+header{background:linear-gradient(135deg,#0b1f33,#12395c);color:white;text-align:center;padding:70px 20px;border-bottom:5px solid #c9a227}
+header h1{font-size:44px} header p{font-size:19px;color:#e5e7eb}
+nav{background:white;padding:16px;text-align:center;border-bottom:1px solid #d1d5db}
+nav a{color:#0b1f33;text-decoration:none;margin:0 18px;font-weight:bold}
+body.dark nav,body.dark .card{background:#102a43;color:white;border-color:#1e3a5f}
+body.dark nav a{color:white}
+.toolbar{position:fixed;top:15px;left:15px;display:flex;gap:8px;z-index:1000}
+.toolbar button{background:white;color:#0b1f33;border:1px solid #d1d5db;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:bold}
+.container{width:90%;max-width:1050px;margin:40px auto}
+.card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:32px;box-shadow:0 12px 30px rgba(15,23,42,.08);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;right:0;width:100%;height:5px;background:linear-gradient(90deg,#c9a227,#0f766e)}
+.card h2{color:#0f766e;margin-bottom:10px}
+.search-box{display:flex;gap:10px;margin-top:25px}
+.search-box input{flex:1;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px}
+.search-box button{background:#0f766e;color:white;border:none;padding:14px 26px;border-radius:12px;cursor:pointer;font-weight:bold}
+.result{display:none;margin-top:20px;padding:18px;border-radius:16px;background:#f8fafc;border-right:5px solid #0f766e}
+.ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
+.chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
+.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227}
+.chat-messages{flex:1;padding:15px;overflow-y:auto}
+.message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
+.bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
+.quick-buttons,.chat-input{display:flex;gap:8px;padding:10px;background:#f8fafc}
+.quick-buttons button{flex:1;background:#e2e8f0;color:#0b1f33;border:none;border-radius:10px;padding:10px;cursor:pointer}
+.chat-input input{flex:1;padding:12px;border:1px solid #cbd5e1;border-radius:10px}
+.chat-input button{background:#0f766e;color:white;border:none;border-radius:10px;padding:12px 16px;cursor:pointer}
+@media(max-width:600px){.chat-box{width:90%;left:5%}.search-box{flex-direction:column}}
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="nav">
-    <div class="logo">🛡️ Cyber Glossary</div>
-    <div class="tools">
-      <a class="main-btn" href="about.html" id="aboutBtn">عن المشروع</a>
-      <button onclick="toggleLanguage()" id="langBtn">English</button>
-      <button onclick="toggleTheme()" id="themeBtn">🌙 الوضع</button>
-      <button onclick="increaseFont()">A+</button>
-      <button onclick="decreaseFont()">A-</button>
-    </div>
-  </div>
+<div class="toolbar">
+<button onclick="downloadPDF()">PDF</button>
+<button onclick="toggleTheme()">☀ / 🌙</button>
+<button onclick="toggleLanguage()">AR / EN</button>
+<button onclick="changeFontSize(-1)">-A</button>
+<button onclick="changeFontSize(1)">+A</button>
 </div>
 
-<section class="hero">
-  <h1 id="mainTitle">القاموس السيبراني التفاعلي</h1>
-  <p id="mainSubtitle">منصة تعليمية لفهم مصطلحات الأمن السيبراني من خلال البحث، الأمثلة، الحلول، والمساعد الذكي.</p>
-  <br>
-  <a class="main-btn" href="terms.html" id="termsBtn">عرض جميع المصطلحات</a>
-</section>
+<header>
+<h1 id="mainTitle">قاموس الأمن السيبراني</h1>
+<p id="mainDesc">قاموس تفاعلي ثنائي اللغة مع مساعد ذكي</p>
+</header>
+
+<nav>
+<a href="index.html" id="navHome">الرئيسية</a>
+<a href="terms.html" id="navTerms">المصطلحات</a>
+<a href="about.html" id="navAbout">عن المشروع</a>
+</nav>
 
 <div class="container">
+<div class="card">
+<h2 id="welcomeTitle">مرحباً بك</h2>
+<p id="welcomeText">منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.</p>
 
-  <div class="section">
-    <h2 id="aiTitle">🧠 المساعد الذكي</h2>
-    <div class="ai-box">
-      <input id="aiQuestion" type="text" placeholder="اكتب كلمة فقط مثل: فيروس أو Phishing">
-      <button onclick="askAI()" id="sendBtn">إرسال</button>
-    </div>
-    <p id="aiAnswer">اكتب المصطلح وسيتم شرحه تلقائيًا.</p>
-  </div>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="اكتبي المصطلح هنا">
+<button onclick="searchTerm()" id="searchBtn">بحث</button>
+</div>
 
-  <div class="section">
-    <h2 id="quickSearchTitle">🔍 البحث السريع</h2>
-    <div class="controls">
-      <input id="searchInput" type="text" placeholder="ابحث عن مصطلح...">
-      <select id="categoryFilter"><option value="">كل الفئات</option></select>
-      <select id="levelFilter"><option value="">كل المستويات</option></select>
-      <button onclick="goToTerms()" id="searchBtn">بحث</button>
-    </div>
-    <div class="alphabet-bar" id="alphabetBar"></div>
-  </div>
+<div id="result" class="result"></div>
+</div>
+</div>
 
+<button class="ai-button" onclick="toggleChat()">AI</button>
+
+<div class="chat-box" id="chatBox">
+<div class="chat-header">المساعد الذكي للأمن السيبراني</div>
+<div class="chat-messages" id="chatMessages">
+<div class="message bot">مرحباً بك 👋
+اكتب أي سؤال عن الأمن السيبراني وسأساعدك.</div>
+</div>
+
+<div class="quick-buttons">
+<button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
+<button onclick="quickAsk('ما هو Malware؟')">Malware</button>
+<button onclick="quickAsk('كيف أتواصل مع الموقع؟')">تواصل</button>
+</div>
+
+<div class="chat-input">
+<button onclick="sendMessage()">إرسال</button>
+<input id="userInput" placeholder="اكتب سؤالك هنا...">
+</div>
 </div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwEZR2hd5RJYdmk2mVGLgQjbVpc-28v_Gabhcuk4zvit7tspvyHYJgbrN1UcN0jqGoX/exec";
-const N8N_WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+let fontSize=16;
+let currentLang="ar";
 
-let allTerms=[],fontSize=18,currentLang="ar";
+const terms=[
+{english:"phishing",arabic:"التصيد الاحتيالي",definition:"محاولة خداع المستخدم للحصول على معلومات حساسة مثل كلمة المرور أو بيانات البنك."},
+{english:"malware",arabic:"البرمجيات الخبيثة",definition:"برامج ضارة قد تسرق البيانات أو تضر الجهاز."},
+{english:"firewall",arabic:"جدار الحماية",definition:"نظام يحمي الجهاز أو الشبكة من الاتصالات غير المصرح بها."}
+];
 
-const T={
-ar:{dir:"rtl",lang:"ar",langBtn:"English",about:"عن المشروع",theme:"🌙 الوضع",title:"القاموس السيبراني التفاعلي",sub:"منصة تعليمية لفهم مصطلحات الأمن السيبراني من خلال البحث، الأمثلة، الحلول، والمساعد الذكي.",terms:"عرض جميع المصطلحات",ai:"🧠 المساعد الذكي",aiPH:"اكتب كلمة فقط مثل: فيروس أو Phishing",send:"إرسال",aiDefault:"اكتب المصطلح وسيتم شرحه تلقائيًا.",quick:"🔍 البحث السريع",searchPH:"ابحث عن مصطلح...",allCat:"كل الفئات",allLvl:"كل المستويات",search:"بحث",askFirst:"اكتب كلمة أولاً.",processing:"جاري المعالجة...",failAI:"تعذر الاتصال بالمساعد الذكي."},
-en:{dir:"ltr",lang:"en",langBtn:"العربية",about:"About",theme:"🌙 Theme",title:"Interactive Cybersecurity Glossary",sub:"An educational platform for understanding cybersecurity terms through search, examples, solutions, and a smart assistant.",terms:"View All Terms",ai:"🧠 Smart AI Assistant",aiPH:"Type one word, such as Malware or Phishing",send:"Send",aiDefault:"Type a term and it will be explained automatically.",quick:"🔍 Quick Search",searchPH:"Search for a term...",allCat:"All Categories",allLvl:"All Levels",search:"Search",askFirst:"Please type a word first.",processing:"Processing...",failAI:"Unable to connect to the Smart Assistant."}
-};
+function searchTerm(){
+const input=document.getElementById("searchInput").value.trim().toLowerCase();
+const result=document.getElementById("result");
 
-function levelToArabic(level){return level==="beginner"?"للمبتدئين":level==="intermediate"?"خبرة متوسطة":level==="advanced"?"خبرة متقدمة":level}
-async function askAI(){
-  const q=document.getElementById("aiQuestion").value.trim(),box=document.getElementById("aiAnswer"),L=T[currentLang];
-  if(!q){box.innerText=L.askFirst;return}
-  box.innerText=L.processing;
-  const smartPrompt=currentLang==="ar"
-  ?`عرّف هذا المصطلح في الأمن السيبراني بشكل مبسط وبالعربية، ثم أعط مثالًا وحلًا مختصرًا إن وجد: ${q}`
-  :`Define this cybersecurity term in simple English, then give a short example and a brief solution if applicable: ${q}`;
-  try{
-    const response=await fetch(N8N_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:smartPrompt,question:smartPrompt,query:q})});
-    const data=await response.json();
-    box.innerText=data.reply||data.answer||data.message||data.text||data.output||JSON.stringify(data);
-  }catch{box.innerText=L.failAI}
+if(!input){
+result.style.display="block";
+result.innerHTML="الرجاء كتابة مصطلح.";
+return;
 }
-async function loadFilters(){
-  const res=await fetch(API_URL),data=await res.json();
-  allTerms=Array.isArray(data)?data:data.data;
-  populateFilters();createAlphabetBar();
+
+const found=terms.find(t=>t.english.includes(input)||t.arabic.includes(input));
+result.style.display="block";
+result.innerHTML=found
+? `<h3>${found.english} - ${found.arabic}</h3><p>${found.definition}</p>`
+: "لم يتم العثور على المصطلح. جربي سؤال المساعد الذكي.";
 }
-function populateFilters(){
-  const L=T[currentLang],category=document.getElementById("categoryFilter"),level=document.getElementById("levelFilter");
-  category.innerHTML=`<option value="">${L.allCat}</option>`;
-  level.innerHTML=`<option value="">${L.allLvl}</option>`;
-  [...new Set(allTerms.map(x=>x.category).filter(Boolean))].forEach(c=>category.innerHTML+=`<option value="${c}">${c}</option>`);
-  [...new Set(allTerms.map(x=>x.difficulty_level).filter(Boolean))].forEach(l=>level.innerHTML+=`<option value="${l}">${currentLang==="ar"?levelToArabic(l):l}</option>`);
+
+function toggleChat(){
+const box=document.getElementById("chatBox");
+box.style.display=box.style.display==="flex"?"none":"flex";
 }
-function createAlphabetBar(){
-  const letters=["ا","ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","هـ","و","ي"];
-  const container=document.getElementById("alphabetBar");container.innerHTML="";
-  letters.forEach(letter=>{const btn=document.createElement("button");btn.className="letter-btn";btn.innerText=letter;btn.onclick=()=>{location.href=`terms.html?letter=${encodeURIComponent(letter)}`};container.appendChild(btn);});
+
+function addMessage(text,type){
+const chat=document.getElementById("chatMessages");
+const msg=document.createElement("div");
+msg.className="message "+type;
+msg.innerText=text;
+chat.appendChild(msg);
+chat.scrollTop=chat.scrollHeight;
 }
-function goToTerms(){
-  const q=document.getElementById("searchInput").value.trim(),cat=document.getElementById("categoryFilter").value,lvl=document.getElementById("levelFilter").value;
-  location.href=`terms.html?q=${encodeURIComponent(q)}&cat=${encodeURIComponent(cat)}&lvl=${encodeURIComponent(lvl)}`;
+
+function quickAsk(q){
+document.getElementById("userInput").value=q;
+sendMessage();
 }
+
+async function sendMessage(){
+const input=document.getElementById("userInput");
+const q=input.value.trim();
+
+if(!q)return;
+
+addMessage(q,"user");
+input.value="";
+addMessage("جاري التفكير...","bot");
+
+try{
+const res=await fetch(WEBHOOK_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({question:q})
+});
+
+const answer=await res.text();
+
+document.getElementById("chatMessages").lastChild.remove();
+addMessage(answer||"لم يصل رد من المساعد.","bot");
+
+}catch(e){
+document.getElementById("chatMessages").lastChild.remove();
+addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
+console.error(e);
+}
+}
+
+function toggleTheme(){document.body.classList.toggle("dark")}
+
+function changeFontSize(v){
+fontSize+=v;
+if(fontSize<13)fontSize=13;
+if(fontSize>26)fontSize=26;
+document.body.style.fontSize=fontSize+"px";
+}
+
 function toggleLanguage(){
-  currentLang=currentLang==="ar"?"en":"ar";const L=T[currentLang];
-  document.documentElement.lang=L.lang;document.documentElement.dir=L.dir;document.body.dir=L.dir;
-  document.getElementById("langBtn").innerText=L.langBtn;document.getElementById("aboutBtn").innerText=L.about;document.getElementById("themeBtn").innerText=L.theme;
-  document.getElementById("mainTitle").innerText=L.title;document.getElementById("mainSubtitle").innerText=L.sub;document.getElementById("termsBtn").innerText=L.terms;
-  document.getElementById("aiTitle").innerText=L.ai;document.getElementById("aiQuestion").placeholder=L.aiPH;document.getElementById("sendBtn").innerText=L.send;document.getElementById("aiAnswer").innerText=L.aiDefault;
-  document.getElementById("quickSearchTitle").innerText=L.quick;document.getElementById("searchInput").placeholder=L.searchPH;document.getElementById("searchBtn").innerText=L.search;
-  populateFilters();
+if(currentLang==="ar"){
+document.documentElement.lang="en";
+document.documentElement.dir="ltr";
+currentLang="en";
+mainTitle.innerText="Cybersecurity Glossary";
+mainDesc.innerText="Interactive bilingual glossary with a smart assistant";
+navHome.innerText="Home";
+navTerms.innerText="Terms";
+navAbout.innerText="About";
+welcomeTitle.innerText="Welcome";
+welcomeText.innerText="An educational platform that helps Arabic users understand cybersecurity terms through simple explanations, practical examples, and a smart assistant.";
+searchBtn.innerText="Search";
+searchInput.placeholder="Type a term here";
+}else{
+document.documentElement.lang="ar";
+document.documentElement.dir="rtl";
+currentLang="ar";
+mainTitle.innerText="قاموس الأمن السيبراني";
+mainDesc.innerText="قاموس تفاعلي ثنائي اللغة مع مساعد ذكي";
+navHome.innerText="الرئيسية";
+navTerms.innerText="المصطلحات";
+navAbout.innerText="عن المشروع";
+welcomeTitle.innerText="مرحباً بك";
+welcomeText.innerText="منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.";
+searchBtn.innerText="بحث";
+searchInput.placeholder="اكتبي المصطلح هنا";
 }
-function toggleTheme(){document.body.classList.toggle("light")}
-function increaseFont(){if(fontSize<24){fontSize+=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
-function decreaseFont(){if(fontSize>14){fontSize-=2;document.documentElement.style.setProperty("--base-font",fontSize+"px")}}
-loadFilters();
+}
+
+function downloadPDF(){window.print()}
+
+document.getElementById("userInput").addEventListener("keydown",function(e){
+if(e.key==="Enter")sendMessage();
+});
 </script>
+
 </body>
 </html>

@@ -2,58 +2,204 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>About Project</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عن المشروع</title>
+
 <style>
-body{font-family:Tahoma,Arial,sans-serif;background:#f4fff7;margin:0;padding:40px 20px;line-height:2;color:#102016}
-.container{max-width:950px;margin:auto;background:#fff;padding:35px;border-radius:24px;box-shadow:0 15px 40px rgba(0,0,0,.1);border-top:6px solid #15803d}
-h1,h2{color:#166534}
-a,button{display:inline-block;background:#16a34a;color:white;padding:10px 18px;border-radius:12px;text-decoration:none;margin-top:20px;border:none;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
+body{background:#f1f5f9;color:#0b1f33;line-height:2}
+body.dark{background:#0b1f33;color:#f8fafc}
+header{background:linear-gradient(135deg,#0b1f33,#12395c);color:white;text-align:center;padding:70px 20px;border-bottom:5px solid #c9a227}
+header h1{font-size:44px}header p{font-size:19px;color:#e5e7eb}
+nav{background:white;padding:16px;text-align:center;border-bottom:1px solid #d1d5db}
+nav a{color:#0b1f33;text-decoration:none;margin:0 18px;font-weight:bold}
+body.dark nav,body.dark .card{background:#102a43;color:white;border-color:#1e3a5f}
+body.dark nav a{color:white}
+.toolbar{position:fixed;top:15px;left:15px;display:flex;gap:8px;z-index:1000}
+.toolbar button{background:white;color:#0b1f33;border:1px solid #d1d5db;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:bold}
+.container{width:90%;max-width:1000px;margin:40px auto}
+.card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:28px;margin-bottom:20px;box-shadow:0 12px 30px rgba(15,23,42,.08);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;right:0;width:100%;height:5px;background:linear-gradient(90deg,#c9a227,#0f766e)}
+.card h2{color:#0f766e;margin-bottom:10px}
+.ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
+.chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
+.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227}
+.chat-messages{flex:1;padding:15px;overflow-y:auto}
+.message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
+.bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
+.quick-buttons,.chat-input{display:flex;gap:8px;padding:10px;background:#f8fafc}
+.quick-buttons button{flex:1;background:#e2e8f0;color:#0b1f33;border:none;border-radius:10px;padding:10px;cursor:pointer}
+.chat-input input{flex:1;padding:12px;border:1px solid #cbd5e1;border-radius:10px}
+.chat-input button{background:#0f766e;color:white;border:none;border-radius:10px;padding:12px 16px;cursor:pointer}
+@media(max-width:600px){.chat-box{width:90%;left:5%}}
 </style>
 </head>
+
 <body>
 
+<div class="toolbar">
+<button onclick="downloadPDF()">PDF</button>
+<button onclick="toggleTheme()">☀ / 🌙</button>
+<button onclick="toggleLanguage()">AR / EN</button>
+<button onclick="changeFontSize(-1)">-A</button>
+<button onclick="changeFontSize(1)">+A</button>
+</div>
+
+<header>
+<h1 id="mainTitle">عن المشروع</h1>
+<p id="mainDesc">معلومات عن مشروع قاموس الأمن السيبراني</p>
+</header>
+
+<nav>
+<a href="index.html" id="navHome">الرئيسية</a>
+<a href="terms.html" id="navTerms">المصطلحات</a>
+<a href="about.html" id="navAbout">عن المشروع</a>
+</nav>
+
 <div class="container">
-<button onclick="toggleLanguage()" id="langBtn">English</button>
 
-<h1 id="title">عن المشروع</h1>
-<p id="name"><strong>اسم المشروع:</strong> القاموس السيبراني التفاعلي</p>
+<div class="card">
+<h2 id="ideaTitle">فكرة المشروع</h2>
+<p id="ideaText">قاموس إلكتروني تفاعلي متخصص في الأمن السيبراني يساعد المستخدم العربي على فهم المصطلحات التقنية بطريقة مبسطة.</p>
+</div>
 
-<p id="idea"><strong>فكرة المشروع:</strong> يهدف المشروع إلى إنشاء قاموس تفاعلي يشرح مصطلحات الأمن السيبراني باللغتين العربية والإنجليزية، مع توفير تعريفات مبسطة، أمثلة واقعية، حلول مقترحة، ومساعد ذكي.</p>
+<div class="card">
+<h2 id="goalTitle">هدف المشروع</h2>
+<p id="goalText">تسهيل فهم مفاهيم الأمن السيبراني عبر الترجمة والشرح المبسط والأمثلة العملية.</p>
+</div>
 
-<h2 id="goalsTitle">أهداف المشروع</h2>
-<ul id="goals">
-<li>تسهيل فهم مصطلحات الأمن السيبراني للمستخدم العربي.</li>
-<li>تقديم تعريفات مبسطة مناسبة للمبتدئين.</li>
-<li>إضافة أمثلة واقعية وسياق سعودي للمصطلحات.</li>
-<li>دعم المستخدم من خلال مساعد ذكي مرتبط بـ n8n.</li>
-</ul>
+<div class="card">
+<h2 id="aiTitle">المساعد الذكي</h2>
+<p id="aiText">مساعد ذكي مدمج داخل الموقع للإجابة عن الأسئلة وشرح المصطلحات وتقديم الإرشادات.</p>
+</div>
 
-<h2 id="toolsTitle">الأدوات والتقنيات المستخدمة</h2>
-<ul id="tools">
-<li>HTML</li><li>CSS</li><li>JavaScript</li><li>Google Sheets Database</li><li>n8n Smart AI Integration</li>
-</ul>
+</div>
 
-<a href="index.html" id="home">العودة للرئيسية</a>
-<a href="terms.html" id="terms">عرض المصطلحات</a>
+<button class="ai-button" onclick="toggleChat()">AI</button>
+
+<div class="chat-box" id="chatBox">
+<div class="chat-header">المساعد الذكي للأمن السيبراني</div>
+<div class="chat-messages" id="chatMessages">
+<div class="message bot">مرحباً بك 👋
+اسأليني عن المشروع أو عن أي مصطلح.</div>
+</div>
+
+<div class="quick-buttons">
+<button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
+<button onclick="quickAsk('ما هو Malware؟')">Malware</button>
+<button onclick="quickAsk('كيف أتواصل مع الموقع؟')">تواصل</button>
+</div>
+
+<div class="chat-input">
+<button onclick="sendMessage()">إرسال</button>
+<input id="userInput" placeholder="اكتب سؤالك هنا...">
+</div>
 </div>
 
 <script>
-let lang="ar";
-const data={
-ar:{dir:"rtl",btn:"English",title:"عن المشروع",name:"اسم المشروع: القاموس السيبراني التفاعلي",idea:"فكرة المشروع: يهدف المشروع إلى إنشاء قاموس تفاعلي يشرح مصطلحات الأمن السيبراني باللغتين العربية والإنجليزية، مع توفير تعريفات مبسطة، أمثلة واقعية، حلول مقترحة، ومساعد ذكي.",goalsTitle:"أهداف المشروع",goals:["تسهيل فهم مصطلحات الأمن السيبراني للمستخدم العربي.","تقديم تعريفات مبسطة مناسبة للمبتدئين.","إضافة أمثلة واقعية وسياق سعودي للمصطلحات.","دعم المستخدم من خلال مساعد ذكي مرتبط بـ n8n."],toolsTitle:"الأدوات والتقنيات المستخدمة",home:"العودة للرئيسية",terms:"عرض المصطلحات"},
-en:{dir:"ltr",btn:"العربية",title:"About the Project",name:"Project Name: Interactive Cybersecurity Glossary",idea:"Project Idea: The project aims to create an interactive glossary that explains cybersecurity terms in Arabic and English, with simplified definitions, real examples, suggested solutions, and a smart assistant.",goalsTitle:"Project Goals",goals:["Make cybersecurity terminology easier for Arabic-speaking users.","Provide simple definitions suitable for beginners.","Add realistic examples and Saudi context.","Support users through an n8n-connected smart assistant."],toolsTitle:"Tools and Technologies Used",home:"Back to Home",terms:"View Terms"}};
-function toggleLanguage(){
-lang=lang==="ar"?"en":"ar";const t=data[lang];
-document.documentElement.lang=lang;document.documentElement.dir=t.dir;document.body.dir=t.dir;
-document.getElementById("langBtn").innerText=t.btn;document.getElementById("title").innerText=t.title;
-document.getElementById("name").innerHTML="<strong>"+t.name+"</strong>";
-document.getElementById("idea").innerHTML="<strong>"+t.idea+"</strong>";
-document.getElementById("goalsTitle").innerText=t.goalsTitle;
-document.getElementById("goals").innerHTML=t.goals.map(x=>`<li>${x}</li>`).join("");
-document.getElementById("toolsTitle").innerText=t.toolsTitle;
-document.getElementById("home").innerText=t.home;document.getElementById("terms").innerText=t.terms;
+const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+let fontSize=16;
+let currentLang="ar";
+
+function toggleChat(){
+const box=document.getElementById("chatBox");
+box.style.display=box.style.display==="flex"?"none":"flex";
 }
+
+function addMessage(text,type){
+const chat=document.getElementById("chatMessages");
+const msg=document.createElement("div");
+msg.className="message "+type;
+msg.innerText=text;
+chat.appendChild(msg);
+chat.scrollTop=chat.scrollHeight;
+}
+
+function quickAsk(q){
+document.getElementById("userInput").value=q;
+sendMessage();
+}
+
+async function sendMessage(){
+const input=document.getElementById("userInput");
+const q=input.value.trim();
+
+if(!q)return;
+
+addMessage(q,"user");
+input.value="";
+addMessage("جاري التفكير...","bot");
+
+try{
+const res=await fetch(WEBHOOK_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({question:q})
+});
+
+const answer=await res.text();
+
+document.getElementById("chatMessages").lastChild.remove();
+addMessage(answer||"لم يصل رد من المساعد.","bot");
+
+}catch(e){
+document.getElementById("chatMessages").lastChild.remove();
+addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
+console.error(e);
+}
+}
+
+function toggleTheme(){document.body.classList.toggle("dark")}
+
+function changeFontSize(v){
+fontSize+=v;
+if(fontSize<13)fontSize=13;
+if(fontSize>26)fontSize=26;
+document.body.style.fontSize=fontSize+"px";
+}
+
+function toggleLanguage(){
+if(currentLang==="ar"){
+document.documentElement.lang="en";
+document.documentElement.dir="ltr";
+currentLang="en";
+
+mainTitle.innerText="About the Project";
+mainDesc.innerText="Information about the cybersecurity glossary project";
+navHome.innerText="Home";
+navTerms.innerText="Terms";
+navAbout.innerText="About";
+ideaTitle.innerText="Project Idea";
+ideaText.innerText="An interactive cybersecurity glossary that helps Arabic users understand technical cybersecurity terms in a simple way.";
+goalTitle.innerText="Project Goal";
+goalText.innerText="To simplify cybersecurity concepts through translation, simple explanations, and practical examples.";
+aiTitle.innerText="Smart Assistant";
+aiText.innerText="A built-in smart assistant that answers questions, explains terms, and provides guidance.";
+
+}else{
+document.documentElement.lang="ar";
+document.documentElement.dir="rtl";
+currentLang="ar";
+
+mainTitle.innerText="عن المشروع";
+mainDesc.innerText="معلومات عن مشروع قاموس الأمن السيبراني";
+navHome.innerText="الرئيسية";
+navTerms.innerText="المصطلحات";
+navAbout.innerText="عن المشروع";
+ideaTitle.innerText="فكرة المشروع";
+ideaText.innerText="قاموس إلكتروني تفاعلي متخصص في الأمن السيبراني يساعد المستخدم العربي على فهم المصطلحات التقنية بطريقة مبسطة.";
+goalTitle.innerText="هدف المشروع";
+goalText.innerText="تسهيل فهم مفاهيم الأمن السيبراني عبر الترجمة والشرح المبسط والأمثلة العملية.";
+aiTitle.innerText="المساعد الذكي";
+aiText.innerText="مساعد ذكي مدمج داخل الموقع للإجابة عن الأسئلة وشرح المصطلحات وتقديم الإرشادات.";
+}
+}
+
+function downloadPDF(){window.print()}
+
+document.getElementById("userInput").addEventListener("keydown",function(e){
+if(e.key==="Enter")sendMessage();
+});
 </script>
 
 </body>

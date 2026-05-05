@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استيراد المصطلحات</title>
+
+<style>
+body{
+font-family:Tahoma;
+background:#f5f7fb;
+padding:40px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+h1{
+text-align:center;
+}
+
+button{
+padding:15px 20px;
+border:none;
+border-radius:12px;
+background:#16a34a;
+color:white;
+cursor:pointer;
+font-size:16px;
+}
+
+#status{
+margin-top:20px;
+font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>رفع المصطلحات إلى Firebase</h1>
+
+<input type="file" id="jsonFile" accept=".json">
+
+<br><br>
+
+<button onclick="uploadTerms()">
+رفع البيانات
+</button>
+
+<div id="status"></div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCeZRXwkgrd1ogjyV4f_ocwHPFp4TRSkd4",
+authDomain: "cyberglossary-71e7d.firebaseapp.com",
+projectId: "cyberglossary-71e7d",
+storageBucket: "cyberglossary-71e7d.firebasestorage.app",
+messagingSenderId: "1033056123958",
+appId: "1:1033056123958:web:c5fa53180442ce770aac97"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.uploadTerms = async function(){
+
+const file =
+document.getElementById("jsonFile").files[0];
+
+const status =
+document.getElementById("status");
+
+if(!file){
+status.innerText =
+"اختاري ملف JSON أولاً";
+return;
+}
+
+status.innerText =
+"جاري رفع البيانات...";
+
+const text =
+await file.text();
+
+const terms =
+JSON.parse(text);
+
+for(const term of terms){
+await addDoc(
+collection(db,"terms"),
+term
+);
+}
+
+status.innerText =
+"تم رفع المصطلحات بنجاح ✅";
+
+};
+
+</script>
+
+</body>
+</html>
