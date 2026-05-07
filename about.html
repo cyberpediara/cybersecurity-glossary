@@ -9,31 +9,189 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
 body{background:#f1f5f9;color:#0b1f33;line-height:2}
 body.dark{background:#0b1f33;color:#f8fafc}
-header{background:linear-gradient(135deg,#0b1f33,#12395c);color:white;text-align:center;padding:70px 20px;border-bottom:5px solid #c9a227}
-header h1{font-size:44px}header p{font-size:19px;color:#e5e7eb}
-nav{background:white;padding:16px;text-align:center;border-bottom:1px solid #d1d5db}
-nav a{color:#0b1f33;text-decoration:none;margin:0 18px;font-weight:bold}
-body.dark nav,body.dark .card{background:#102a43;color:white;border-color:#1e3a5f}
+
+header{
+background:linear-gradient(135deg,#0b1f33,#12395c);
+color:white;
+text-align:center;
+padding:70px 20px;
+border-bottom:5px solid #c9a227
+}
+header h1{font-size:44px}
+header p{font-size:19px;color:#e5e7eb}
+
+nav{
+background:white;
+padding:16px;
+text-align:center;
+border-bottom:1px solid #d1d5db
+}
+nav a{
+color:#0b1f33;
+text-decoration:none;
+margin:0 18px;
+font-weight:bold
+}
+
+body.dark nav,
+body.dark .card{
+background:#102a43;
+color:white;
+border-color:#1e3a5f
+}
 body.dark nav a{color:white}
-.toolbar{position:fixed;top:15px;left:15px;display:flex;gap:8px;z-index:1000}
-.toolbar button{background:white;color:#0b1f33;border:1px solid #d1d5db;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:bold}
-.container{width:90%;max-width:1000px;margin:40px auto}
-.card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:28px;margin-bottom:20px;box-shadow:0 12px 30px rgba(15,23,42,.08);position:relative;overflow:hidden}
-.card::before{content:"";position:absolute;top:0;right:0;width:100%;height:5px;background:linear-gradient(90deg,#c9a227,#0f766e)}
-.card h2{color:#0f766e;margin-bottom:10px}
-.ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
-.chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
-.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227;position:relative}
-.chat-close{position:absolute;left:15px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;font-size:30px;font-weight:bold;cursor:pointer}
+
+.toolbar{
+position:fixed;
+top:15px;
+left:15px;
+display:flex;
+gap:8px;
+z-index:1000
+}
+.toolbar button{
+background:white;
+color:#0b1f33;
+border:1px solid #d1d5db;
+padding:9px 12px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold
+}
+
+.container{
+width:90%;
+max-width:1000px;
+margin:40px auto
+}
+
+.card{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:22px;
+padding:28px;
+margin-bottom:20px;
+box-shadow:0 12px 30px rgba(15,23,42,.08);
+position:relative;
+overflow:hidden
+}
+.card::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:100%;
+height:5px;
+background:linear-gradient(90deg,#c9a227,#0f766e)
+}
+.card h2{
+color:#0f766e;
+margin-bottom:10px
+}
+
+.ai-button{
+position:fixed;
+bottom:30px;
+left:30px;
+width:74px;
+height:74px;
+border:none;
+border-radius:50%;
+background:#0f766e;
+color:white;
+font-size:26px;
+font-weight:bold;
+cursor:pointer;
+z-index:999
+}
+
+.chat-box{
+position:fixed;
+bottom:120px;
+left:30px;
+width:390px;
+height:530px;
+background:white;
+color:#0b1f33;
+border:1px solid #d1d5db;
+border-radius:22px;
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:999;
+box-shadow:0 20px 45px rgba(15,23,42,.18)
+}
+.chat-header{
+background:#0b1f33;
+color:white;
+padding:18px;
+text-align:center;
+font-weight:bold;
+border-bottom:4px solid #c9a227;
+position:relative
+}
+.chat-close{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+background:none;
+border:none;
+color:white;
+font-size:30px;
+font-weight:bold;
+cursor:pointer
+}
 .chat-close:hover{color:#c9a227}
-.chat-messages{flex:1;padding:15px;overflow-y:auto}
-.message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
-.bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
-.quick-buttons,.chat-input{display:flex;gap:8px;padding:10px;background:#f8fafc}
-.quick-buttons button{flex:1;background:#e2e8f0;color:#0b1f33;border:none;border-radius:10px;padding:10px;cursor:pointer}
-.chat-input input{flex:1;padding:12px;border:1px solid #cbd5e1;border-radius:10px}
-.chat-input button{background:#0f766e;color:white;border:none;border-radius:10px;padding:12px 16px;cursor:pointer}
-@media(max-width:600px){.chat-box{width:90%;left:5%}}
+
+.chat-messages{
+flex:1;
+padding:15px;
+overflow-y:auto
+}
+.message{
+padding:12px;
+margin:10px 0;
+border-radius:14px;
+white-space:pre-wrap
+}
+.bot{background:#f1f5f9;color:#0b1f33}
+.user{background:#0f766e;color:white}
+
+.quick-buttons,
+.chat-input{
+display:flex;
+gap:8px;
+padding:10px;
+background:#f8fafc
+}
+.quick-buttons button{
+flex:1;
+background:#e2e8f0;
+color:#0b1f33;
+border:none;
+border-radius:10px;
+padding:10px;
+cursor:pointer
+}
+.chat-input input{
+flex:1;
+padding:12px;
+border:1px solid #cbd5e1;
+border-radius:10px
+}
+.chat-input button{
+background:#0f766e;
+color:white;
+border:none;
+border-radius:10px;
+padding:12px 16px;
+cursor:pointer
+}
+
+@media(max-width:600px){
+.chat-box{width:90%;left:5%}
+}
 </style>
 </head>
 
@@ -49,7 +207,7 @@ body.dark nav a{color:white}
 
 <header>
 <h1 id="mainTitle">عن المشروع</h1>
-<p id="mainDesc">معلومات عن مشروع قاموس الأمن السيبراني</p>
+<p id="mainDesc">معلومات تفصيلية عن مشروع قاموس الأمن السيبراني</p>
 </header>
 
 <nav>
@@ -62,17 +220,37 @@ body.dark nav a{color:white}
 
 <div class="card">
 <h2 id="ideaTitle">فكرة المشروع</h2>
-<p id="ideaText">قاموس إلكتروني تفاعلي متخصص في الأمن السيبراني يساعد المستخدم العربي على فهم المصطلحات التقنية بطريقة مبسطة.</p>
+<p id="ideaText">
+مشروع قاموس الأمن السيبراني هو منصة إلكترونية تفاعلية تهدف إلى تبسيط المصطلحات التقنية المتعلقة بالأمن السيبراني للمستخدم العربي. يوفر المشروع ترجمة دقيقة للمصطلحات من الإنجليزية إلى العربية مع شرح مبسط وأمثلة واقعية تساعد على فهم المفهوم بشكل عملي وسريع. كما يساعد المستخدمين المبتدئين والمهتمين بالمجال على بناء معرفة أساسية قوية في الأمن السيبراني.
+</p>
 </div>
 
 <div class="card">
 <h2 id="goalTitle">هدف المشروع</h2>
-<p id="goalText">تسهيل فهم مفاهيم الأمن السيبراني عبر الترجمة والشرح المبسط والأمثلة العملية.</p>
+<p id="goalText">
+يهدف المشروع إلى زيادة الوعي بالأمن السيبراني وتسهيل الوصول إلى المعلومات التقنية بطريقة واضحة ومبسطة. كما يساهم في مساعدة الطلاب والمبتدئين على فهم المصطلحات الشائعة في مجال الأمن السيبراني، وتعلم طرق الحماية من التهديدات الإلكترونية مثل التصيد الاحتيالي والبرمجيات الخبيثة والاختراقات.
+</p>
+</div>
+
+<div class="card">
+<h2 id="importanceTitle">أهمية المشروع</h2>
+<p id="importanceText">
+تكمن أهمية المشروع في أنه يعالج صعوبة فهم المصطلحات السيبرانية باللغة الإنجليزية، خاصة للمستخدمين العرب غير المتخصصين. لذلك يقدم الموقع محتوى تعليمي مبسط يجمع بين الترجمة والشرح والأمثلة وطرق الحماية، مما يجعل التعلم أسهل وأكثر فاعلية.
+</p>
+</div>
+
+<div class="card">
+<h2 id="featuresTitle">مميزات المشروع</h2>
+<p id="featuresText">
+يتميز المشروع بواجهة عربية سهلة الاستخدام، وإمكانية البحث عن المصطلحات باللغتين العربية والإنجليزية، وعرض التعريفات والأمثلة وطرق الحماية بشكل منظم. كما يدعم الموقع الوضع الليلي، وتكبير وتصغير الخط، وتحويل الصفحة إلى PDF، مما يحسن تجربة المستخدم ويجعل الموقع أكثر مرونة.
+</p>
 </div>
 
 <div class="card">
 <h2 id="aiTitle">المساعد الذكي</h2>
-<p id="aiText">مساعد ذكي مدمج داخل الموقع للإجابة عن الأسئلة وشرح المصطلحات وتقديم الإرشادات.</p>
+<p id="aiText">
+يحتوي المشروع على مساعد ذكي مدمج داخل الموقع للإجابة عن أسئلة المستخدمين بشكل فوري، وشرح المصطلحات التقنية بلغة بسيطة، وتقديم أمثلة عملية وحلول وقائية. كما يساعد المستخدم في معرفة طرق التعامل مع حالات الاحتيال الإلكتروني والاختراقات ويوفر إرشادات أمنية تساعد على حماية البيانات والحسابات.
+</p>
 </div>
 
 </div>
@@ -155,7 +333,9 @@ console.error(e);
 }
 }
 
-function toggleTheme(){document.body.classList.toggle("dark")}
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
 
 function changeFontSize(v){
 fontSize+=v;
@@ -171,16 +351,25 @@ document.documentElement.dir="ltr";
 currentLang="en";
 
 mainTitle.innerText="About the Project";
-mainDesc.innerText="Information about the cybersecurity glossary project";
+mainDesc.innerText="Detailed information about the cybersecurity glossary project";
 navHome.innerText="Home";
 navTerms.innerText="Terms";
 navAbout.innerText="About";
+
 ideaTitle.innerText="Project Idea";
-ideaText.innerText="An interactive cybersecurity glossary that helps Arabic users understand technical cybersecurity terms in a simple way.";
+ideaText.innerText="The Cybersecurity Glossary project is an interactive electronic platform that aims to simplify cybersecurity terms for Arabic users. It provides accurate English-to-Arabic translation, simple explanations, and practical examples that help users understand concepts clearly and quickly.";
+
 goalTitle.innerText="Project Goal";
-goalText.innerText="To simplify cybersecurity concepts through translation, simple explanations, and practical examples.";
+goalText.innerText="The project aims to increase cybersecurity awareness and make technical information easier to access. It helps students and beginners understand common cybersecurity terms and learn protection methods against threats such as phishing, malware, and hacking.";
+
+importanceTitle.innerText="Project Importance";
+importanceText.innerText="The importance of this project comes from solving the difficulty of understanding cybersecurity terms in English, especially for non-specialized Arabic users. The website presents educational content that combines translation, explanation, examples, and protection methods.";
+
+featuresTitle.innerText="Project Features";
+featuresText.innerText="The project includes an easy Arabic interface, bilingual search, organized definitions, examples, and protection methods. It also supports dark mode, font size control, and PDF printing to improve the user experience.";
+
 aiTitle.innerText="Smart Assistant";
-aiText.innerText="A built-in smart assistant that answers questions, explains terms, and provides guidance.";
+aiText.innerText="The project includes a built-in smart assistant that answers user questions instantly, explains technical terms in simple language, and provides examples and preventive guidance to help protect accounts and data.";
 
 }else{
 document.documentElement.lang="ar";
@@ -188,20 +377,31 @@ document.documentElement.dir="rtl";
 currentLang="ar";
 
 mainTitle.innerText="عن المشروع";
-mainDesc.innerText="معلومات عن مشروع قاموس الأمن السيبراني";
+mainDesc.innerText="معلومات تفصيلية عن مشروع قاموس الأمن السيبراني";
 navHome.innerText="الرئيسية";
 navTerms.innerText="المصطلحات";
 navAbout.innerText="عن المشروع";
+
 ideaTitle.innerText="فكرة المشروع";
-ideaText.innerText="قاموس إلكتروني تفاعلي متخصص في الأمن السيبراني يساعد المستخدم العربي على فهم المصطلحات التقنية بطريقة مبسطة.";
+ideaText.innerText="مشروع قاموس الأمن السيبراني هو منصة إلكترونية تفاعلية تهدف إلى تبسيط المصطلحات التقنية المتعلقة بالأمن السيبراني للمستخدم العربي. يوفر المشروع ترجمة دقيقة للمصطلحات من الإنجليزية إلى العربية مع شرح مبسط وأمثلة واقعية تساعد على فهم المفهوم بشكل عملي وسريع. كما يساعد المستخدمين المبتدئين والمهتمين بالمجال على بناء معرفة أساسية قوية في الأمن السيبراني.";
+
 goalTitle.innerText="هدف المشروع";
-goalText.innerText="تسهيل فهم مفاهيم الأمن السيبراني عبر الترجمة والشرح المبسط والأمثلة العملية.";
+goalText.innerText="يهدف المشروع إلى زيادة الوعي بالأمن السيبراني وتسهيل الوصول إلى المعلومات التقنية بطريقة واضحة ومبسطة. كما يساهم في مساعدة الطلاب والمبتدئين على فهم المصطلحات الشائعة في مجال الأمن السيبراني، وتعلم طرق الحماية من التهديدات الإلكترونية مثل التصيد الاحتيالي والبرمجيات الخبيثة والاختراقات.";
+
+importanceTitle.innerText="أهمية المشروع";
+importanceText.innerText="تكمن أهمية المشروع في أنه يعالج صعوبة فهم المصطلحات السيبرانية باللغة الإنجليزية، خاصة للمستخدمين العرب غير المتخصصين. لذلك يقدم الموقع محتوى تعليمي مبسط يجمع بين الترجمة والشرح والأمثلة وطرق الحماية، مما يجعل التعلم أسهل وأكثر فاعلية.";
+
+featuresTitle.innerText="مميزات المشروع";
+featuresText.innerText="يتميز المشروع بواجهة عربية سهلة الاستخدام، وإمكانية البحث عن المصطلحات باللغتين العربية والإنجليزية، وعرض التعريفات والأمثلة وطرق الحماية بشكل منظم. كما يدعم الموقع الوضع الليلي، وتكبير وتصغير الخط، وتحويل الصفحة إلى PDF، مما يحسن تجربة المستخدم ويجعل الموقع أكثر مرونة.";
+
 aiTitle.innerText="المساعد الذكي";
-aiText.innerText="مساعد ذكي مدمج داخل الموقع للإجابة عن الأسئلة وشرح المصطلحات وتقديم الإرشادات.";
+aiText.innerText="يحتوي المشروع على مساعد ذكي مدمج داخل الموقع للإجابة عن أسئلة المستخدمين بشكل فوري، وشرح المصطلحات التقنية بلغة بسيطة، وتقديم أمثلة عملية وحلول وقائية. كما يساعد المستخدم في معرفة طرق التعامل مع حالات الاحتيال الإلكتروني والاختراقات ويوفر إرشادات أمنية تساعد على حماية البيانات والحسابات.";
 }
 }
 
-function downloadPDF(){window.print()}
+function downloadPDF(){
+window.print();
+}
 
 document.getElementById("userInput").addEventListener("keydown",function(e){
 if(e.key==="Enter")sendMessage();
