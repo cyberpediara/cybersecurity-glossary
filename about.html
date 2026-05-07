@@ -23,7 +23,9 @@ body.dark nav a{color:white}
 .card h2{color:#0f766e;margin-bottom:10px}
 .ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
 .chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
-.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227}
+.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227;position:relative}
+.chat-close{position:absolute;left:15px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;font-size:30px;font-weight:bold;cursor:pointer}
+.chat-close:hover{color:#c9a227}
 .chat-messages{flex:1;padding:15px;overflow-y:auto}
 .message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
 .bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
@@ -78,7 +80,11 @@ body.dark nav a{color:white}
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
-<div class="chat-header">المساعد الذكي للأمن السيبراني</div>
+<div class="chat-header">
+المساعد الذكي للأمن السيبراني
+<button class="chat-close" onclick="toggleChat()">×</button>
+</div>
+
 <div class="chat-messages" id="chatMessages">
 <div class="message bot">مرحباً بك 👋
 اسأليني عن المشروع أو عن أي مصطلح.</div>

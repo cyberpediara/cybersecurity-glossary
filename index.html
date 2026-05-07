@@ -27,7 +27,9 @@ body.dark nav a{color:white}
 .result{display:none;margin-top:20px;padding:18px;border-radius:16px;background:#f8fafc;border-right:5px solid #0f766e}
 .ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
 .chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
-.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227}
+.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227;position:relative}
+.chat-close{position:absolute;left:15px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;font-size:30px;font-weight:bold;cursor:pointer}
+.chat-close:hover{color:#c9a227}
 .chat-messages{flex:1;padding:15px;overflow-y:auto}
 .message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
 .bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
@@ -44,7 +46,6 @@ body.dark nav a{color:white}
 <div class="toolbar">
 <button onclick="downloadPDF()">PDF</button>
 <button onclick="toggleTheme()">☀ / 🌙</button>
-<button onclick="toggleLanguage()">AR / EN</button>
 <button onclick="changeFontSize(-1)">-A</button>
 <button onclick="changeFontSize(1)">+A</button>
 </div>
@@ -55,19 +56,19 @@ body.dark nav a{color:white}
 </header>
 
 <nav>
-<a href="index.html" id="navHome">الرئيسية</a>
-<a href="terms.html" id="navTerms">المصطلحات</a>
-<a href="about.html" id="navAbout">عن المشروع</a>
+<a href="index.html">الرئيسية</a>
+<a href="terms.html">المصطلحات</a>
+<a href="about.html">عن المشروع</a>
 </nav>
 
 <div class="container">
 <div class="card">
-<h2 id="welcomeTitle">مرحباً بك</h2>
-<p id="welcomeText">منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.</p>
+<h2>مرحباً بك</h2>
+<p>منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.</p>
 
 <div class="search-box">
 <input type="text" id="searchInput" placeholder="اكتبي المصطلح هنا">
-<button onclick="searchTerm()" id="searchBtn">بحث</button>
+<button onclick="searchTerm()">بحث</button>
 </div>
 
 <div id="result" class="result"></div>
@@ -77,7 +78,11 @@ body.dark nav a{color:white}
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
-<div class="chat-header">المساعد الذكي للأمن السيبراني</div>
+<div class="chat-header">
+المساعد الذكي للأمن السيبراني
+<button class="chat-close" onclick="toggleChat()">×</button>
+</div>
+
 <div class="chat-messages" id="chatMessages">
 <div class="message bot">مرحباً بك 👋
 اكتب أي سؤال عن الأمن السيبراني وسأساعدك.</div>
@@ -95,33 +100,75 @@ body.dark nav a{color:white}
 </div>
 </div>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCeZRXwkgrd1ogjyV4f_ocwHPFp4TRSkd4",
+  authDomain: "cyberglossary-71e7d.firebaseapp.com",
+  projectId: "cyberglossary-71e7d",
+  storageBucket: "cyberglossary-71e7d.firebasestorage.app",
+  messagingSenderId: "1033056123958",
+  appId: "1:1033056123958:web:c5fa53180442ce770aac97"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let allTerms = [];
+
+async function loadTerms(){
+  const querySnapshot = await getDocs(collection(db,"terms"));
+
+  querySnapshot.forEach((doc)=>{
+    const data = doc.data();
+
+    allTerms.push({
+      english_term: data.english_term || data.english || data.term_en || "",
+      arabic_term: data.arabic_term || data.arabic || data.term_ar || "",
+      definition_ar: data.definition_ar || data.definition || "",
+      example_ar: data.example_ar || data.example || "",
+      solution_ar: data.solution_ar || data.solution || ""
+    });
+  });
+}
+
+window.searchTerm = function(){
+  const input = document.getElementById("searchInput").value.trim().toLowerCase();
+  const result = document.getElementById("result");
+
+  if(!input){
+    result.style.display = "block";
+    result.innerHTML = "الرجاء كتابة مصطلح.";
+    return;
+  }
+
+  const found = allTerms.find(term =>
+    term.english_term.toLowerCase().includes(input) ||
+    term.arabic_term.includes(input)
+  );
+
+  result.style.display = "block";
+
+  if(found){
+    result.innerHTML = `
+      <h3>${found.english_term} - ${found.arabic_term}</h3>
+      <p><strong>التعريف:</strong> ${found.definition_ar || "غير متوفر"}</p>
+      <p><strong>مثال:</strong> ${found.example_ar || "غير متوفر"}</p>
+      <p><strong>طريقة الحماية:</strong> ${found.solution_ar || "غير متوفر"}</p>
+    `;
+  }else{
+    result.innerHTML = "لم يتم العثور على المصطلح. جربي سؤال المساعد الذكي.";
+  }
+};
+
+loadTerms();
+</script>
+
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
 let fontSize=16;
-let currentLang="ar";
-
-const terms=[
-{english:"phishing",arabic:"التصيد الاحتيالي",definition:"محاولة خداع المستخدم للحصول على معلومات حساسة مثل كلمة المرور أو بيانات البنك."},
-{english:"malware",arabic:"البرمجيات الخبيثة",definition:"برامج ضارة قد تسرق البيانات أو تضر الجهاز."},
-{english:"firewall",arabic:"جدار الحماية",definition:"نظام يحمي الجهاز أو الشبكة من الاتصالات غير المصرح بها."}
-];
-
-function searchTerm(){
-const input=document.getElementById("searchInput").value.trim().toLowerCase();
-const result=document.getElementById("result");
-
-if(!input){
-result.style.display="block";
-result.innerHTML="الرجاء كتابة مصطلح.";
-return;
-}
-
-const found=terms.find(t=>t.english.includes(input)||t.arabic.includes(input));
-result.style.display="block";
-result.innerHTML=found
-? `<h3>${found.english} - ${found.arabic}</h3><p>${found.definition}</p>`
-: "لم يتم العثور على المصطلح. جربي سؤال المساعد الذكي.";
-}
 
 function toggleChat(){
 const box=document.getElementById("chatBox");
@@ -145,7 +192,6 @@ sendMessage();
 async function sendMessage(){
 const input=document.getElementById("userInput");
 const q=input.value.trim();
-
 if(!q)return;
 
 addMessage(q,"user");
@@ -160,14 +206,12 @@ body:JSON.stringify({question:q})
 });
 
 const answer=await res.text();
-
 document.getElementById("chatMessages").lastChild.remove();
 addMessage(answer||"لم يصل رد من المساعد.","bot");
 
 }catch(e){
 document.getElementById("chatMessages").lastChild.remove();
 addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
-console.error(e);
 }
 }
 
@@ -178,36 +222,6 @@ fontSize+=v;
 if(fontSize<13)fontSize=13;
 if(fontSize>26)fontSize=26;
 document.body.style.fontSize=fontSize+"px";
-}
-
-function toggleLanguage(){
-if(currentLang==="ar"){
-document.documentElement.lang="en";
-document.documentElement.dir="ltr";
-currentLang="en";
-mainTitle.innerText="Cybersecurity Glossary";
-mainDesc.innerText="Interactive bilingual glossary with a smart assistant";
-navHome.innerText="Home";
-navTerms.innerText="Terms";
-navAbout.innerText="About";
-welcomeTitle.innerText="Welcome";
-welcomeText.innerText="An educational platform that helps Arabic users understand cybersecurity terms through simple explanations, practical examples, and a smart assistant.";
-searchBtn.innerText="Search";
-searchInput.placeholder="Type a term here";
-}else{
-document.documentElement.lang="ar";
-document.documentElement.dir="rtl";
-currentLang="ar";
-mainTitle.innerText="قاموس الأمن السيبراني";
-mainDesc.innerText="قاموس تفاعلي ثنائي اللغة مع مساعد ذكي";
-navHome.innerText="الرئيسية";
-navTerms.innerText="المصطلحات";
-navAbout.innerText="عن المشروع";
-welcomeTitle.innerText="مرحباً بك";
-welcomeText.innerText="منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.";
-searchBtn.innerText="بحث";
-searchInput.placeholder="اكتبي المصطلح هنا";
-}
 }
 
 function downloadPDF(){window.print()}

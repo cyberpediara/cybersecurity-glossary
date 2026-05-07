@@ -171,6 +171,22 @@ body.dark .term-card{
   text-align:center;
   font-weight:bold;
   border-bottom:4px solid #c9a227;
+  position:relative;
+}
+.chat-close{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:white;
+  font-size:30px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.chat-close:hover{
+  color:#c9a227;
 }
 .chat-messages{
   flex:1;
@@ -266,7 +282,10 @@ body.dark .term-card{
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
-  <div class="chat-header">المساعد الذكي للأمن السيبراني</div>
+  <div class="chat-header">
+    المساعد الذكي للأمن السيبراني
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
 
   <div id="chatMessages" class="chat-messages">
     <div class="message bot">
@@ -305,6 +324,42 @@ const db = getFirestore(app);
 
 let allTerms = [];
 
+function translateDifficulty(value){
+  if(!value) return "غير محدد";
+  const v = value.toString().toLowerCase().trim();
+
+  if(v.includes("beginner") || v.includes("easy") || v.includes("مبتدئ")) return "مبتدئين";
+  if(v.includes("intermediate") || v.includes("medium") || v.includes("متوسط")) return "متوسط";
+  if(v.includes("advanced") || v.includes("hard") || v.includes("متقدم")) return "متقدم";
+
+  return value;
+}
+
+function translateCategory(value){
+  if(!value) return "عام";
+  const v = value.toString().toLowerCase().trim();
+
+  const categories = {
+    "social engineering":"الهندسة الاجتماعية",
+    "malware":"البرمجيات الخبيثة",
+    "network security":"أمن الشبكات",
+    "application security":"أمن التطبيقات",
+    "data security":"أمن البيانات",
+    "authentication":"المصادقة",
+    "password security":"أمن كلمات المرور",
+    "email security":"أمن البريد الإلكتروني",
+    "cloud security":"أمن الحوسبة السحابية",
+    "web security":"أمن الويب",
+    "privacy":"الخصوصية",
+    "cryptography":"التشفير",
+    "cyber attack":"هجمات سيبرانية",
+    "cyber attacks":"هجمات سيبرانية",
+    "general":"عام"
+  };
+
+  return categories[v] || value;
+}
+
 async function loadTerms(){
   const container = document.getElementById("termsContainer");
 
@@ -320,8 +375,8 @@ async function loadTerms(){
       const definition = data.definition_ar || data.definition || data.meaning || "";
       const example = data.example_ar || data.example || "";
       const solution = data.solution_ar || data.solution || "";
-      const category = data.category || "عام";
-      const difficulty = data.difficulty_level || data.difficulty || "غير محدد";
+      const category = translateCategory(data.category || "عام");
+      const difficulty = translateDifficulty(data.difficulty_level || data.difficulty || "غير محدد");
 
       if(english.trim()){
         uniqueTerms.set(english.toLowerCase().trim(),{
@@ -367,8 +422,8 @@ function displayTerms(terms){
         <p><strong>التعريف:</strong> ${term.definition_ar || "غير متوفر"}</p>
         <p><strong>مثال:</strong> ${term.example_ar || "غير متوفر"}</p>
         <p><strong>طريقة الحماية:</strong> ${term.solution_ar || "غير متوفر"}</p>
-        <span class="tag">${term.category}</span>
-        <span class="tag">${term.difficulty_level}</span>
+        <span class="tag">نوع المصطلح: ${term.category}</span>
+        <span class="tag">المستوى: ${term.difficulty_level}</span>
       </div>
     `;
   });
@@ -380,7 +435,9 @@ window.searchTerms = function(){
   const filtered = allTerms.filter(term =>
     term.english_term.toLowerCase().includes(text) ||
     (term.arabic_term || "").includes(text) ||
-    (term.definition_ar || "").includes(text)
+    (term.definition_ar || "").includes(text) ||
+    (term.category || "").includes(text) ||
+    (term.difficulty_level || "").includes(text)
   );
 
   displayTerms(filtered);
