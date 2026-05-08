@@ -6,38 +6,271 @@
 <title>قاموس الأمن السيبراني</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
-body{background:#f1f5f9;color:#0b1f33;line-height:2}
-body.dark{background:#0b1f33;color:#f8fafc}
-header{background:linear-gradient(135deg,#0b1f33,#12395c);color:white;text-align:center;padding:70px 20px;border-bottom:5px solid #c9a227}
-header h1{font-size:44px} header p{font-size:19px;color:#e5e7eb}
-nav{background:white;padding:16px;text-align:center;border-bottom:1px solid #d1d5db}
-nav a{color:#0b1f33;text-decoration:none;margin:0 18px;font-weight:bold}
-body.dark nav,body.dark .card{background:#102a43;color:white;border-color:#1e3a5f}
-body.dark nav a{color:white}
-.toolbar{position:fixed;top:15px;left:15px;display:flex;gap:8px;z-index:1000}
-.toolbar button{background:white;color:#0b1f33;border:1px solid #d1d5db;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:bold}
-.container{width:90%;max-width:1050px;margin:40px auto}
-.card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:32px;box-shadow:0 12px 30px rgba(15,23,42,.08);position:relative;overflow:hidden}
-.card::before{content:"";position:absolute;top:0;right:0;width:100%;height:5px;background:linear-gradient(90deg,#c9a227,#0f766e)}
-.card h2{color:#0f766e;margin-bottom:10px}
-.search-box{display:flex;gap:10px;margin-top:25px}
-.search-box input{flex:1;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px}
-.search-box button{background:#0f766e;color:white;border:none;padding:14px 26px;border-radius:12px;cursor:pointer;font-weight:bold}
-.result{display:none;margin-top:20px;padding:18px;border-radius:16px;background:#f8fafc;border-right:5px solid #0f766e}
-.ai-button{position:fixed;bottom:30px;left:30px;width:74px;height:74px;border:none;border-radius:50%;background:#0f766e;color:white;font-size:26px;font-weight:bold;cursor:pointer;z-index:999}
-.chat-box{position:fixed;bottom:120px;left:30px;width:390px;height:530px;background:white;color:#0b1f33;border:1px solid #d1d5db;border-radius:22px;display:none;flex-direction:column;overflow:hidden;z-index:999;box-shadow:0 20px 45px rgba(15,23,42,.18)}
-.chat-header{background:#0b1f33;color:white;padding:18px;text-align:center;font-weight:bold;border-bottom:4px solid #c9a227;position:relative}
-.chat-close{position:absolute;left:15px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;font-size:30px;font-weight:bold;cursor:pointer}
-.chat-close:hover{color:#c9a227}
-.chat-messages{flex:1;padding:15px;overflow-y:auto}
-.message{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap}
-.bot{background:#f1f5f9;color:#0b1f33}.user{background:#0f766e;color:white}
-.quick-buttons,.chat-input{display:flex;gap:8px;padding:10px;background:#f8fafc}
-.quick-buttons button{flex:1;background:#e2e8f0;color:#0b1f33;border:none;border-radius:10px;padding:10px;cursor:pointer}
-.chat-input input{flex:1;padding:12px;border:1px solid #cbd5e1;border-radius:10px}
-.chat-input button{background:#0f766e;color:white;border:none;border-radius:10px;padding:12px 16px;cursor:pointer}
-@media(max-width:600px){.chat-box{width:90%;left:5%}.search-box{flex-direction:column}}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+background:#f1f5f9;
+color:#0b1f33;
+line-height:2;
+}
+
+body.dark{
+background:#0b1f33;
+color:#f8fafc;
+}
+
+header{
+background:linear-gradient(135deg,#0b1f33,#12395c);
+color:white;
+text-align:center;
+padding:70px 20px;
+border-bottom:5px solid #c9a227;
+}
+
+header h1{
+font-size:44px;
+}
+
+header p{
+font-size:19px;
+color:#e5e7eb;
+}
+
+nav{
+background:white;
+padding:16px;
+text-align:center;
+border-bottom:1px solid #d1d5db;
+}
+
+nav a{
+color:#0b1f33;
+text-decoration:none;
+margin:0 18px;
+font-weight:bold;
+}
+
+body.dark nav,
+body.dark .card{
+background:#102a43;
+color:white;
+border-color:#1e3a5f;
+}
+
+body.dark nav a{
+color:white;
+}
+
+.toolbar{
+position:fixed;
+top:15px;
+left:15px;
+display:flex;
+gap:8px;
+z-index:1000;
+}
+
+.toolbar button{
+background:white;
+color:#0b1f33;
+border:1px solid #d1d5db;
+padding:9px 12px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.container{
+width:90%;
+max-width:1050px;
+margin:40px auto;
+}
+
+.card{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:22px;
+padding:32px;
+box-shadow:0 12px 30px rgba(15,23,42,.08);
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:100%;
+height:5px;
+background:linear-gradient(90deg,#c9a227,#0f766e);
+}
+
+.card h2{
+color:#0f766e;
+margin-bottom:10px;
+}
+
+.search-box{
+display:flex;
+gap:10px;
+margin-top:25px;
+}
+
+.search-box input{
+flex:1;
+padding:14px;
+border:1px solid #cbd5e1;
+border-radius:12px;
+font-size:16px;
+}
+
+.search-box button{
+background:#0f766e;
+color:white;
+border:none;
+padding:14px 26px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.result{
+display:none;
+margin-top:20px;
+padding:18px;
+border-radius:16px;
+background:#f8fafc;
+border-right:5px solid #0f766e;
+}
+
+.speak-btn{
+background:#0f766e;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:10px;
+cursor:pointer;
+margin:8px;
+}
+
+.ai-button{
+position:fixed;
+bottom:30px;
+left:30px;
+width:74px;
+height:74px;
+border:none;
+border-radius:50%;
+background:#0f766e;
+color:white;
+font-size:26px;
+font-weight:bold;
+cursor:pointer;
+z-index:999;
+}
+
+.chat-box{
+position:fixed;
+bottom:120px;
+left:30px;
+width:390px;
+height:530px;
+background:white;
+color:#0b1f33;
+border:1px solid #d1d5db;
+border-radius:22px;
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:999;
+box-shadow:0 20px 45px rgba(15,23,42,.18);
+}
+
+.chat-header{
+background:#0b1f33;
+color:white;
+padding:18px;
+text-align:center;
+font-weight:bold;
+border-bottom:4px solid #c9a227;
+position:relative;
+}
+
+.chat-close{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+background:none;
+border:none;
+color:white;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.chat-messages{
+flex:1;
+padding:15px;
+overflow-y:auto;
+}
+
+.message{
+padding:12px;
+margin:10px 0;
+border-radius:14px;
+white-space:pre-wrap;
+}
+
+.bot{
+background:#f1f5f9;
+color:#0b1f33;
+}
+
+.user{
+background:#0f766e;
+color:white;
+}
+
+.quick-buttons,
+.chat-input{
+display:flex;
+gap:8px;
+padding:10px;
+background:#f8fafc;
+}
+
+.quick-buttons button{
+flex:1;
+background:#e2e8f0;
+color:#0b1f33;
+border:none;
+border-radius:10px;
+padding:10px;
+cursor:pointer;
+}
+
+.chat-input input{
+flex:1;
+padding:12px;
+border:1px solid #cbd5e1;
+border-radius:10px;
+}
+
+.chat-input button{
+background:#0f766e;
+color:white;
+border:none;
+border-radius:10px;
+padding:12px 16px;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -51,8 +284,8 @@ body.dark nav a{color:white}
 </div>
 
 <header>
-<h1 id="mainTitle">قاموس الأمن السيبراني</h1>
-<p id="mainDesc">قاموس تفاعلي ثنائي اللغة مع مساعد ذكي</p>
+<h1>قاموس الأمن السيبراني</h1>
+<p>قاموس تفاعلي ثنائي اللغة مع مساعد ذكي</p>
 </header>
 
 <nav>
@@ -64,7 +297,11 @@ body.dark nav a{color:white}
 <div class="container">
 <div class="card">
 <h2>مرحباً بك</h2>
-<p>منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.</p>
+
+<p>
+منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني
+بطريقة مبسطة مع أمثلة عملية وطرق حماية واضحة.
+</p>
 
 <div class="search-box">
 <input type="text" id="searchInput" placeholder="اكتبي المصطلح هنا">
@@ -72,32 +309,36 @@ body.dark nav a{color:white}
 </div>
 
 <div id="result" class="result"></div>
+
 </div>
 </div>
 
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
+
 <div class="chat-header">
 المساعد الذكي للأمن السيبراني
 <button class="chat-close" onclick="toggleChat()">×</button>
 </div>
 
 <div class="chat-messages" id="chatMessages">
-<div class="message bot">مرحباً بك 👋
-اكتب أي سؤال عن الأمن السيبراني وسأساعدك.</div>
+<div class="message bot">
+مرحباً بك 👋
+اكتب أي سؤال عن الأمن السيبراني وسأساعدك
+</div>
 </div>
 
 <div class="quick-buttons">
 <button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
 <button onclick="quickAsk('ما هو Malware؟')">Malware</button>
-<button onclick="quickAsk('كيف أتواصل مع الموقع؟')">تواصل</button>
 </div>
 
 <div class="chat-input">
 <button onclick="sendMessage()">إرسال</button>
 <input id="userInput" placeholder="اكتب سؤالك هنا...">
 </div>
+
 </div>
 
 <script type="module">
@@ -105,12 +346,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCeZRXwkgrd1ogjyV4f_ocwHPFp4TRSkd4",
-  authDomain: "cyberglossary-71e7d.firebaseapp.com",
-  projectId: "cyberglossary-71e7d",
-  storageBucket: "cyberglossary-71e7d.firebasestorage.app",
-  messagingSenderId: "1033056123958",
-  appId: "1:1033056123958:web:c5fa53180442ce770aac97"
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_AUTH_DOMAIN",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_STORAGE_BUCKET",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -119,48 +360,59 @@ const db = getFirestore(app);
 let allTerms = [];
 
 async function loadTerms(){
-  const querySnapshot = await getDocs(collection(db,"terms"));
+const querySnapshot = await getDocs(collection(db,"terms"));
 
-  querySnapshot.forEach((doc)=>{
-    const data = doc.data();
+querySnapshot.forEach((doc)=>{
+const data = doc.data();
 
-    allTerms.push({
-      english_term: data.english_term || data.english || data.term_en || "",
-      arabic_term: data.arabic_term || data.arabic || data.term_ar || "",
-      definition_ar: data.definition_ar || data.definition || "",
-      example_ar: data.example_ar || data.example || "",
-      solution_ar: data.solution_ar || data.solution || ""
-    });
-  });
+allTerms.push({
+english_term: data.english_term || "",
+arabic_term: data.arabic_term || "",
+definition_ar: data.definition_ar || "",
+example_ar: data.example_ar || "",
+solution_ar: data.solution_ar || ""
+});
+});
 }
 
 window.searchTerm = function(){
-  const input = document.getElementById("searchInput").value.trim().toLowerCase();
-  const result = document.getElementById("result");
+const input = document.getElementById("searchInput").value.trim().toLowerCase();
+const result = document.getElementById("result");
 
-  if(!input){
-    result.style.display = "block";
-    result.innerHTML = "الرجاء كتابة مصطلح.";
-    return;
-  }
+if(!input){
+result.style.display="block";
+result.innerHTML="الرجاء كتابة مصطلح.";
+return;
+}
 
-  const found = allTerms.find(term =>
-    term.english_term.toLowerCase().includes(input) ||
-    term.arabic_term.includes(input)
-  );
+const found = allTerms.find(term =>
+term.english_term.toLowerCase().includes(input) ||
+term.arabic_term.includes(input)
+);
 
-  result.style.display = "block";
+result.style.display="block";
 
-  if(found){
-    result.innerHTML = `
-      <h3>${found.english_term} - ${found.arabic_term}</h3>
-      <p><strong>التعريف:</strong> ${found.definition_ar || "غير متوفر"}</p>
-      <p><strong>مثال:</strong> ${found.example_ar || "غير متوفر"}</p>
-      <p><strong>طريقة الحماية:</strong> ${found.solution_ar || "غير متوفر"}</p>
-    `;
-  }else{
-    result.innerHTML = "لم يتم العثور على المصطلح. جربي سؤال المساعد الذكي.";
-  }
+if(found){
+result.innerHTML=`
+<h3>${found.english_term} - ${found.arabic_term}</h3>
+
+<div>
+<button class="speak-btn" onclick="speakText('${found.english_term}','en-US')">
+🔊 English
+</button>
+
+<button class="speak-btn" onclick="speakText('${found.arabic_term}','ar-SA')">
+🔊 عربي
+</button>
+</div>
+
+<p><strong>التعريف:</strong> ${found.definition_ar}</p>
+<p><strong>مثال:</strong> ${found.example_ar}</p>
+<p><strong>طريقة الحماية:</strong> ${found.solution_ar}</p>
+`;
+}else{
+result.innerHTML="لم يتم العثور على المصطلح.";
+}
 };
 
 loadTerms();
@@ -169,6 +421,19 @@ loadTerms();
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
 let fontSize=16;
+
+function speakText(text, lang){
+window.speechSynthesis.cancel();
+
+const speech = new SpeechSynthesisUtterance();
+speech.text=text;
+speech.lang=lang;
+speech.rate=0.9;
+speech.pitch=1;
+speech.volume=1;
+
+window.speechSynthesis.speak(speech);
+}
 
 function toggleChat(){
 const box=document.getElementById("chatBox");
@@ -206,25 +471,32 @@ body:JSON.stringify({question:q})
 });
 
 const answer=await res.text();
+
 document.getElementById("chatMessages").lastChild.remove();
-addMessage(answer||"لم يصل رد من المساعد.","bot");
+addMessage(answer||"لم يصل رد.","bot");
 
 }catch(e){
 document.getElementById("chatMessages").lastChild.remove();
-addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
+addMessage("حدث خطأ.","bot");
 }
 }
 
-function toggleTheme(){document.body.classList.toggle("dark")}
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
 
 function changeFontSize(v){
 fontSize+=v;
+
 if(fontSize<13)fontSize=13;
 if(fontSize>26)fontSize=26;
+
 document.body.style.fontSize=fontSize+"px";
 }
 
-function downloadPDF(){window.print()}
+function downloadPDF(){
+window.print();
+}
 
 document.getElementById("userInput").addEventListener("keydown",function(e){
 if(e.key==="Enter")sendMessage();

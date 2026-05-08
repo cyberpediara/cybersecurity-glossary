@@ -8,239 +8,280 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
 
-body{background:#f4f6f8;color:#111827;line-height:2}
-body.dark{background:#0f172a;color:white}
+body{
+background:#f4f6f8;
+color:#111827;
+line-height:2;
+}
+
+body.dark{
+background:#0f172a;
+color:white;
+}
 
 header{
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-  padding:70px 20px;
-  text-align:center;
-  border-bottom:4px solid #c9a227;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+padding:70px 20px;
+text-align:center;
+border-bottom:4px solid #c9a227;
 }
-header h1{font-size:48px}
-header p{font-size:20px;margin-top:10px}
+
+header h1{
+font-size:48px;
+}
+
+header p{
+font-size:20px;
+margin-top:10px;
+}
 
 nav{
-  background:white;
-  padding:18px;
-  text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
+background:white;
+padding:18px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
+
 nav a{
-  text-decoration:none;
-  color:#111827;
-  margin:0 20px;
-  font-weight:bold;
+text-decoration:none;
+color:#111827;
+margin:0 20px;
+font-weight:bold;
 }
-body.dark nav{background:#1e293b}
-body.dark nav a{color:white}
+
+body.dark nav{
+background:#1e293b;
+}
+
+body.dark nav a{
+color:white;
+}
 
 .toolbar{
-  position:fixed;
-  top:20px;
-  left:20px;
-  display:flex;
-  gap:10px;
-  z-index:999;
+position:fixed;
+top:20px;
+left:20px;
+display:flex;
+gap:10px;
+z-index:999;
 }
+
 .toolbar button{
-  padding:10px 14px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-  background:white;
-  color:#111827;
+padding:10px 14px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+background:white;
+color:#111827;
 }
 
 .container{
-  width:90%;
-  max-width:1200px;
-  margin:40px auto;
+width:90%;
+max-width:1200px;
+margin:40px auto;
 }
 
 .search-box{
-  display:flex;
-  gap:10px;
-  margin-bottom:30px;
+display:flex;
+gap:10px;
+margin-bottom:30px;
 }
+
 .search-box input{
-  flex:1;
-  padding:15px;
-  border:1px solid #d1d5db;
-  border-radius:12px;
-  font-size:16px;
+flex:1;
+padding:15px;
+border:1px solid #d1d5db;
+border-radius:12px;
+font-size:16px;
 }
+
 .search-box button{
-  padding:15px 25px;
-  border:none;
-  background:#0f766e;
-  color:white;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:bold;
+padding:15px 25px;
+border:none;
+background:#0f766e;
+color:white;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
 }
 
 .terms-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
-  gap:22px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+gap:22px;
 }
 
 .term-card{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.07);
-  border:1px solid #e5e7eb;
-  position:relative;
-  overflow:hidden;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.07);
+border:1px solid #e5e7eb;
+position:relative;
+overflow:hidden;
 }
+
 .term-card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  right:0;
-  width:100%;
-  height:5px;
-  background:linear-gradient(90deg,#c9a227,#0f766e);
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:100%;
+height:5px;
+background:linear-gradient(90deg,#c9a227,#0f766e);
 }
+
 body.dark .term-card{
-  background:#1e293b;
-  border-color:#334155;
+background:#1e293b;
+border-color:#334155;
 }
+
 .term-card h2{
-  color:#0f766e;
-  margin-bottom:5px;
+color:#0f766e;
+margin-bottom:5px;
 }
+
 .term-card h3{
-  color:#c9a227;
-  margin-bottom:12px;
+color:#c9a227;
+margin-bottom:12px;
 }
+
 .term-card p{
-  margin-bottom:10px;
+margin-bottom:10px;
 }
 
 .tag{
-  display:inline-block;
-  background:#e0f2f1;
-  color:#0f766e;
-  padding:5px 12px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:bold;
-  margin-top:8px;
-  margin-left:5px;
+display:inline-block;
+background:#e0f2f1;
+color:#0f766e;
+padding:5px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin-top:8px;
+margin-left:5px;
+}
+
+.speak-btn{
+background:#0f766e;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:10px;
+cursor:pointer;
+margin:8px;
 }
 
 .ai-button{
-  position:fixed;
-  bottom:30px;
-  left:30px;
-  width:75px;
-  height:75px;
-  border:none;
-  border-radius:50%;
-  background:#0f766e;
-  color:white;
-  font-size:28px;
-  font-weight:bold;
-  cursor:pointer;
-  z-index:999;
+position:fixed;
+bottom:30px;
+left:30px;
+width:75px;
+height:75px;
+border:none;
+border-radius:50%;
+background:#0f766e;
+color:white;
+font-size:28px;
+font-weight:bold;
+cursor:pointer;
+z-index:999;
 }
 
 .chat-box{
-  position:fixed;
-  bottom:120px;
-  left:30px;
-  width:390px;
-  height:530px;
-  background:white;
-  border-radius:22px;
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  box-shadow:0 15px 40px rgba(0,0,0,.18);
-  z-index:999;
+position:fixed;
+bottom:120px;
+left:30px;
+width:390px;
+height:530px;
+background:white;
+border-radius:22px;
+display:none;
+flex-direction:column;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.18);
+z-index:999;
 }
+
 .chat-header{
-  background:#0f172a;
-  color:white;
-  padding:16px;
-  text-align:center;
-  font-weight:bold;
-  border-bottom:4px solid #c9a227;
-  position:relative;
+background:#0f172a;
+color:white;
+padding:16px;
+text-align:center;
+font-weight:bold;
+border-bottom:4px solid #c9a227;
+position:relative;
 }
+
 .chat-close{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  color:white;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+background:none;
+border:none;
+color:white;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
 }
-.chat-close:hover{
-  color:#c9a227;
-}
+
 .chat-messages{
-  flex:1;
-  padding:15px;
-  overflow-y:auto;
+flex:1;
+padding:15px;
+overflow-y:auto;
 }
+
 .message{
-  padding:12px;
-  margin:10px 0;
-  border-radius:12px;
-  white-space:pre-wrap;
-}
-.bot{background:#f3f4f6;color:#111827}
-.user{background:#0f766e;color:white}
-
-.quick-buttons{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  background:#f8fafc;
-}
-.quick-buttons button{
-  flex:1;
-  background:#e2e8f0;
-  border:none;
-  border-radius:10px;
-  padding:10px;
-  cursor:pointer;
+padding:12px;
+margin:10px 0;
+border-radius:12px;
+white-space:pre-wrap;
 }
 
+.bot{
+background:#f3f4f6;
+color:#111827;
+}
+
+.user{
+background:#0f766e;
+color:white;
+}
+
+.quick-buttons,
 .chat-input{
-  display:flex;
-  padding:10px;
-  gap:10px;
-  background:#f8fafc;
-}
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:10px;
-}
-.chat-input button{
-  padding:12px 18px;
-  background:#0f766e;
-  color:white;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
+display:flex;
+gap:8px;
+padding:10px;
+background:#f8fafc;
 }
 
-@media(max-width:600px){
-  .chat-box{width:90%;left:5%}
-  .search-box{flex-direction:column}
+.quick-buttons button{
+flex:1;
+background:#e2e8f0;
+border:none;
+border-radius:10px;
+padding:10px;
+cursor:pointer;
+}
+
+.chat-input input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+.chat-input button{
+padding:12px 18px;
+background:#0f766e;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
 }
 </style>
 </head>
@@ -248,62 +289,62 @@ body.dark .term-card{
 <body>
 
 <div class="toolbar">
-  <button onclick="downloadPDF()">PDF</button>
-  <button onclick="toggleTheme()">☀ / 🌙</button>
-  <button onclick="toggleLanguage()">AR / EN</button>
-  <button onclick="changeFont(-1)">-A</button>
-  <button onclick="changeFont(1)">+A</button>
+<button onclick="downloadPDF()">PDF</button>
+<button onclick="toggleTheme()">☀ / 🌙</button>
+<button onclick="changeFont(-1)">-A</button>
+<button onclick="changeFont(1)">+A</button>
 </div>
 
 <header>
-  <h1 id="title">المصطلحات</h1>
-  <p id="desc">أهم مصطلحات الأمن السيبراني بطريقة مبسطة</p>
+<h1>المصطلحات</h1>
+<p>أهم مصطلحات الأمن السيبراني بطريقة مبسطة</p>
 </header>
 
 <nav>
-  <a href="index.html" id="navHome">الرئيسية</a>
-  <a href="terms.html" id="navTerms">المصطلحات</a>
-  <a href="about.html" id="navAbout">عن المشروع</a>
+<a href="index.html">الرئيسية</a>
+<a href="terms.html">المصطلحات</a>
+<a href="about.html">عن المشروع</a>
 </nav>
 
 <div class="container">
 
-  <div class="search-box">
-    <input id="searchInput" placeholder="ابحث عن مصطلح">
-    <button onclick="searchTerms()">بحث</button>
-  </div>
+<div class="search-box">
+<input id="searchInput" placeholder="ابحث عن مصطلح">
+<button onclick="searchTerms()">بحث</button>
+</div>
 
-  <div id="termsContainer" class="terms-grid">
-    <p>جاري تحميل المصطلحات...</p>
-  </div>
+<div id="termsContainer" class="terms-grid">
+<p>جاري تحميل المصطلحات...</p>
+</div>
 
 </div>
 
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
-  <div class="chat-header">
-    المساعد الذكي للأمن السيبراني
-    <button class="chat-close" onclick="toggleChat()">×</button>
-  </div>
 
-  <div id="chatMessages" class="chat-messages">
-    <div class="message bot">
+<div class="chat-header">
+المساعد الذكي للأمن السيبراني
+<button class="chat-close" onclick="toggleChat()">×</button>
+</div>
+
+<div id="chatMessages" class="chat-messages">
+<div class="message bot">
 مرحباً بك 👋
-اسألني عن أي مصطلح أو حالة احتيال.
-    </div>
-  </div>
+اسألني عن أي مصطلح
+</div>
+</div>
 
-  <div class="quick-buttons">
-    <button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
-    <button onclick="quickAsk('ما هو Malware؟')">Malware</button>
-    <button onclick="quickAsk('كيف أتواصل مع الموقع؟')">تواصل</button>
-  </div>
+<div class="quick-buttons">
+<button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
+<button onclick="quickAsk('ما هو Malware؟')">Malware</button>
+</div>
 
-  <div class="chat-input">
-    <button onclick="sendMessage()">إرسال</button>
-    <input id="userInput" placeholder="اكتب سؤالك هنا...">
-  </div>
+<div class="chat-input">
+<button onclick="sendMessage()">إرسال</button>
+<input id="userInput" placeholder="اكتب سؤالك هنا...">
+</div>
+
 </div>
 
 <script type="module">
@@ -311,237 +352,203 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCeZRXwkgrd1ogjyV4f_ocwHPFp4TRSkd4",
-  authDomain: "cyberglossary-71e7d.firebaseapp.com",
-  projectId: "cyberglossary-71e7d",
-  storageBucket: "cyberglossary-71e7d.firebasestorage.app",
-  messagingSenderId: "1033056123958",
-  appId: "1:1033056123958:web:c5fa53180442ce770aac97"
+apiKey:"YOUR_API_KEY",
+authDomain:"YOUR_AUTH_DOMAIN",
+projectId:"YOUR_PROJECT_ID",
+storageBucket:"YOUR_STORAGE_BUCKET",
+messagingSenderId:"YOUR_SENDER_ID",
+appId:"YOUR_APP_ID"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-let allTerms = [];
+let allTerms=[];
 
 function translateDifficulty(value){
-  if(!value) return "غير محدد";
-  const v = value.toString().toLowerCase().trim();
+if(!value) return "غير محدد";
 
-  if(v.includes("beginner") || v.includes("easy") || v.includes("مبتدئ")) return "مبتدئين";
-  if(v.includes("intermediate") || v.includes("medium") || v.includes("متوسط")) return "متوسط";
-  if(v.includes("advanced") || v.includes("hard") || v.includes("متقدم")) return "متقدم";
+const v=value.toLowerCase();
 
-  return value;
+if(v.includes("beginner")) return "مبتدئين";
+if(v.includes("intermediate")) return "متوسط";
+if(v.includes("advanced")) return "متقدم";
+
+return value;
 }
 
 function translateCategory(value){
-  if(!value) return "عام";
-  const v = value.toString().toLowerCase().trim();
+if(!value) return "عام";
 
-  const categories = {
-    "social engineering":"الهندسة الاجتماعية",
-    "malware":"البرمجيات الخبيثة",
-    "network security":"أمن الشبكات",
-    "application security":"أمن التطبيقات",
-    "data security":"أمن البيانات",
-    "authentication":"المصادقة",
-    "password security":"أمن كلمات المرور",
-    "email security":"أمن البريد الإلكتروني",
-    "cloud security":"أمن الحوسبة السحابية",
-    "web security":"أمن الويب",
-    "privacy":"الخصوصية",
-    "cryptography":"التشفير",
-    "cyber attack":"هجمات سيبرانية",
-    "cyber attacks":"هجمات سيبرانية",
-    "general":"عام"
-  };
+const categories={
+"social engineering":"الهندسة الاجتماعية",
+"malware":"البرمجيات الخبيثة",
+"network security":"أمن الشبكات",
+"application security":"أمن التطبيقات",
+"data security":"أمن البيانات",
+"authentication":"المصادقة",
+"password security":"أمن كلمات المرور"
+};
 
-  return categories[v] || value;
+return categories[value.toLowerCase()] || value;
 }
 
 async function loadTerms(){
-  const container = document.getElementById("termsContainer");
+const querySnapshot=await getDocs(collection(db,"terms"));
 
-  try{
-    const querySnapshot = await getDocs(collection(db,"terms"));
-    const uniqueTerms = new Map();
+querySnapshot.forEach((doc)=>{
+const data=doc.data();
 
-    querySnapshot.forEach((doc)=>{
-      const data = doc.data();
+allTerms.push({
+english_term:data.english_term || "",
+arabic_term:data.arabic_term || "",
+definition_ar:data.definition_ar || "",
+example_ar:data.example_ar || "",
+solution_ar:data.solution_ar || "",
+category:translateCategory(data.category || ""),
+difficulty_level:translateDifficulty(data.difficulty_level || "")
+});
+});
 
-      const english = data.english_term || data.english || data.term_en || "";
-      const arabic = data.arabic_term || data.arabic || data.term_ar || "";
-      const definition = data.definition_ar || data.definition || data.meaning || "";
-      const example = data.example_ar || data.example || "";
-      const solution = data.solution_ar || data.solution || "";
-      const category = translateCategory(data.category || "عام");
-      const difficulty = translateDifficulty(data.difficulty_level || data.difficulty || "غير محدد");
-
-      if(english.trim()){
-        uniqueTerms.set(english.toLowerCase().trim(),{
-          english_term:english,
-          arabic_term:arabic,
-          definition_ar:definition,
-          example_ar:example,
-          solution_ar:solution,
-          category:category,
-          difficulty_level:difficulty
-        });
-      }
-    });
-
-    allTerms = Array.from(uniqueTerms.values());
-
-    allTerms.sort((a,b)=>
-      a.english_term.localeCompare(b.english_term)
-    );
-
-    displayTerms(allTerms);
-
-  }catch(error){
-    console.error("Firebase Error:",error);
-    container.innerHTML = "<p>فشل تحميل المصطلحات من Firebase. تأكدي من Rules وأسماء الحقول.</p>";
-  }
+displayTerms(allTerms);
 }
 
 function displayTerms(terms){
-  const container = document.getElementById("termsContainer");
-  container.innerHTML = "";
+const container=document.getElementById("termsContainer");
+container.innerHTML="";
 
-  if(terms.length === 0){
-    container.innerHTML = "<p>لا توجد نتائج.</p>";
-    return;
-  }
+terms.forEach(term=>{
+container.innerHTML += `
+<div class="term-card">
 
-  terms.forEach(term=>{
-    container.innerHTML += `
-      <div class="term-card">
-        <h2>${term.english_term}</h2>
-        <h3>${term.arabic_term || ""}</h3>
-        <p><strong>التعريف:</strong> ${term.definition_ar || "غير متوفر"}</p>
-        <p><strong>مثال:</strong> ${term.example_ar || "غير متوفر"}</p>
-        <p><strong>طريقة الحماية:</strong> ${term.solution_ar || "غير متوفر"}</p>
-        <span class="tag">نوع المصطلح: ${term.category}</span>
-        <span class="tag">المستوى: ${term.difficulty_level}</span>
-      </div>
-    `;
-  });
+<h2>${term.english_term}</h2>
+
+<h3>${term.arabic_term}</h3>
+
+<div>
+<button class="speak-btn" onclick="speakText('${term.english_term}','en-US')">
+🔊 English
+</button>
+
+<button class="speak-btn" onclick="speakText('${term.arabic_term}','ar-SA')">
+🔊 عربي
+</button>
+</div>
+
+<p><strong>التعريف:</strong> ${term.definition_ar}</p>
+<p><strong>مثال:</strong> ${term.example_ar}</p>
+<p><strong>طريقة الحماية:</strong> ${term.solution_ar}</p>
+
+<span class="tag">نوع المصطلح: ${term.category}</span>
+<span class="tag">المستوى: ${term.difficulty_level}</span>
+
+</div>
+`;
+});
 }
 
-window.searchTerms = function(){
-  const text = document.getElementById("searchInput").value.toLowerCase().trim();
+window.searchTerms=function(){
+const text=document.getElementById("searchInput").value.toLowerCase();
 
-  const filtered = allTerms.filter(term =>
-    term.english_term.toLowerCase().includes(text) ||
-    (term.arabic_term || "").includes(text) ||
-    (term.definition_ar || "").includes(text) ||
-    (term.category || "").includes(text) ||
-    (term.difficulty_level || "").includes(text)
-  );
+const filtered=allTerms.filter(term =>
+term.english_term.toLowerCase().includes(text) ||
+term.arabic_term.includes(text)
+);
 
-  displayTerms(filtered);
-};
+displayTerms(filtered);
+}
 
 loadTerms();
 </script>
 
 <script>
-const WEBHOOK_URL = "https://buth.app.n8n.cloud/webhook/ask-ai";
-let fontSize = 16;
-let currentLang = "ar";
+const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+
+let fontSize=16;
+
+function speakText(text,lang){
+window.speechSynthesis.cancel();
+
+const speech=new SpeechSynthesisUtterance();
+speech.text=text;
+speech.lang=lang;
+speech.rate=0.9;
+speech.pitch=1;
+speech.volume=1;
+
+window.speechSynthesis.speak(speech);
+}
 
 function toggleChat(){
-  const box = document.getElementById("chatBox");
-  box.style.display = box.style.display === "flex" ? "none" : "flex";
+const box=document.getElementById("chatBox");
+box.style.display=box.style.display==="flex"?"none":"flex";
 }
 
 function addMessage(text,type){
-  const chat = document.getElementById("chatMessages");
-  const div = document.createElement("div");
-  div.className = "message " + type;
-  div.innerText = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+const chat=document.getElementById("chatMessages");
+
+const msg=document.createElement("div");
+msg.className="message "+type;
+msg.innerText=text;
+
+chat.appendChild(msg);
+chat.scrollTop=chat.scrollHeight;
 }
 
-function quickAsk(question){
-  document.getElementById("userInput").value = question;
-  sendMessage();
+function quickAsk(q){
+document.getElementById("userInput").value=q;
+sendMessage();
 }
 
 async function sendMessage(){
-  const input = document.getElementById("userInput");
-  const question = input.value.trim();
+const input=document.getElementById("userInput");
+const q=input.value.trim();
 
-  if(!question) return;
+if(!q) return;
 
-  addMessage(question,"user");
-  input.value = "";
-  addMessage("جاري التفكير...","bot");
+addMessage(q,"user");
+input.value="";
+addMessage("جاري التفكير...","bot");
 
-  try{
-    const res = await fetch(WEBHOOK_URL,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({question:question})
-    });
+try{
+const res=await fetch(WEBHOOK_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({question:q})
+});
 
-    const answer = await res.text();
+const answer=await res.text();
 
-    document.getElementById("chatMessages").lastChild.remove();
-    addMessage(answer || "لم يصل رد من المساعد.","bot");
+document.getElementById("chatMessages").lastChild.remove();
+addMessage(answer || "لم يصل رد.","bot");
 
-  }catch(error){
-    document.getElementById("chatMessages").lastChild.remove();
-    addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
-    console.error(error);
-  }
+}catch(e){
+document.getElementById("chatMessages").lastChild.remove();
+addMessage("حدث خطأ.","bot");
+}
 }
 
 function toggleTheme(){
-  document.body.classList.toggle("dark");
+document.body.classList.toggle("dark");
 }
 
-function changeFont(value){
-  fontSize += value;
-  if(fontSize < 14) fontSize = 14;
-  if(fontSize > 26) fontSize = 26;
-  document.body.style.fontSize = fontSize + "px";
-}
+function changeFont(v){
+fontSize+=v;
 
-function toggleLanguage(){
-  if(currentLang === "ar"){
-    document.documentElement.dir = "ltr";
-    document.documentElement.lang = "en";
+if(fontSize<14) fontSize=14;
+if(fontSize>26) fontSize=26;
 
-    document.getElementById("title").innerText = "Cybersecurity Terms";
-    document.getElementById("desc").innerText = "Key cybersecurity terms explained simply";
-    document.getElementById("navHome").innerText = "Home";
-    document.getElementById("navTerms").innerText = "Terms";
-    document.getElementById("navAbout").innerText = "About";
-
-    currentLang = "en";
-  }else{
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "ar";
-
-    document.getElementById("title").innerText = "المصطلحات";
-    document.getElementById("desc").innerText = "أهم مصطلحات الأمن السيبراني بطريقة مبسطة";
-    document.getElementById("navHome").innerText = "الرئيسية";
-    document.getElementById("navTerms").innerText = "المصطلحات";
-    document.getElementById("navAbout").innerText = "عن المشروع";
-
-    currentLang = "ar";
-  }
+document.body.style.fontSize=fontSize+"px";
 }
 
 function downloadPDF(){
-  window.print();
+window.print();
 }
 
 document.getElementById("userInput").addEventListener("keydown",function(e){
-  if(e.key === "Enter") sendMessage();
+if(e.key==="Enter"){
+sendMessage();
+}
 });
 </script>
 
