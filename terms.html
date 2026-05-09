@@ -396,7 +396,7 @@ left:5%;
 <p>جميع الحقوق محفوظة © 2024</p>
 </footer>
 
-<script type="module">
+<script type="module"><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -414,6 +414,7 @@ const db = getFirestore(app);
 
 let allTerms=[];
 
+/* النطق الصوتي */
 function speakText(text,lang="ar-SA"){
 if(!text)return;
 window.speechSynthesis.cancel();
@@ -426,6 +427,44 @@ window.speechSynthesis.speak(speech);
 
 window.speakText=speakText;
 
+/* ترجمة المستوى للعربي */
+function translateDifficulty(value){
+if(!value) return "مبتدئين";
+
+const level=value.toLowerCase().trim();
+
+if(level==="beginner") return "مبتدئين";
+if(level==="intermediate") return "متوسط";
+if(level==="advanced") return "متقدم";
+
+return value;
+}
+
+/* ترجمة نوع المصطلح للعربي */
+function translateCategory(value){
+if(!value) return "عام";
+
+const categories={
+"social engineering":"الهندسة الاجتماعية",
+"malware":"البرمجيات الخبيثة",
+"network security":"أمن الشبكات",
+"application security":"أمن التطبيقات",
+"data security":"أمن البيانات",
+"authentication":"المصادقة",
+"password security":"أمن كلمات المرور",
+"email security":"أمن البريد الإلكتروني",
+"cloud security":"أمن الحوسبة السحابية",
+"web security":"أمن الويب",
+"privacy":"الخصوصية",
+"cryptography":"التشفير",
+"cyber attack":"هجمات سيبرانية",
+"general":"عام"
+};
+
+return categories[value.toLowerCase()] || value;
+}
+
+/* تحميل المصطلحات */
 async function loadTerms(){
 try{
 const querySnapshot=await getDocs(collection(db,"terms"));
@@ -440,8 +479,11 @@ arabic_term:data.arabic_term || "",
 definition_ar:data.definition_ar || "",
 example_ar:data.example_ar || "",
 solution_ar:data.solution_ar || "",
-category:data.category || "عام",
-difficulty_level:data.difficulty_level || "مبتدئين"
+
+/* هنا التعديل فقط */
+category:translateCategory(data.category),
+difficulty_level:translateDifficulty(data.difficulty_level)
+
 });
 });
 
@@ -453,6 +495,7 @@ document.getElementById("termsContainer").innerHTML="<p>فشل تحميل الم
 }
 }
 
+/* عرض المصطلحات */
 function displayTerms(terms){
 const container=document.getElementById("termsContainer");
 container.innerHTML="";
@@ -488,6 +531,7 @@ ${term.arabic_term}
 });
 }
 
+/* البحث */
 window.searchTerms=function(){
 const text=document.getElementById("searchInput").value.toLowerCase().trim();
 
@@ -498,6 +542,9 @@ term.arabic_term.includes(text)
 
 displayTerms(filtered);
 }
+
+loadTerms();
+</script>
 
 loadTerms();
 </script>
