@@ -19,18 +19,45 @@ color:#0b1f33;
 line-height:2;
 }
 
+/* الوضع الليلي */
 body.dark{
 background:#0b1f33;
 color:white;
 }
 
-/* الشريط */
+body.dark .main-nav,
+body.dark .main-card,
+body.dark .feature-card,
+body.dark .contact-card,
+body.dark .chat-box{
+background:#102a43;
+color:white;
+}
+
+body.dark .main-nav a,
+body.dark .main-card p,
+body.dark .feature-card p,
+body.dark .contact-card p{
+color:white;
+}
+
+body.dark footer{
+background:#06111f;
+}
+
+body.dark .chat-input input{
+background:#1e3a5f;
+color:white;
+border-color:#334155;
+}
+
+/* الأدوات */
 .toolbar{
 position:fixed;
-top:15px;
-left:15px;
+top:20px;
+left:20px;
 display:flex;
-gap:8px;
+gap:10px;
 z-index:1000;
 }
 
@@ -45,40 +72,46 @@ box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
 
 /* الهيدر */
-header{
+.hero{
 background:
-linear-gradient(rgba(4,28,54,.88),rgba(4,28,54,.88)),
+linear-gradient(rgba(3,25,48,.9),rgba(3,25,48,.9)),
 url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
 background-size:cover;
 background-position:center;
 color:white;
 text-align:center;
-padding:120px 20px 90px;
-border-bottom:6px solid #c9a227;
+padding:110px 20px;
+border-bottom:5px solid #c9a227;
 }
 
-header h1{
-font-size:55px;
+.hero h1{
+font-size:50px;
+margin-bottom:15px;
 }
 
-header p{
-font-size:23px;
+.hero p{
+font-size:22px;
 }
 
 /* القائمة */
-nav{
+.main-nav{
 background:white;
-padding:20px;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
+display:flex;
+justify-content:center;
+gap:90px;
+padding:22px;
+box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
-nav a{
+.main-nav a{
 text-decoration:none;
-margin:0 30px;
 color:#0b1f33;
 font-size:20px;
 font-weight:bold;
+}
+
+.main-nav a:hover{
+color:#0f766e;
 }
 
 /* المحتوى */
@@ -88,49 +121,104 @@ max-width:1200px;
 margin:50px auto;
 }
 
-.card{
+/* الكرت الرئيسي */
+.main-card{
 background:white;
-padding:35px;
-margin-bottom:25px;
 border-radius:20px;
-box-shadow:0 12px 30px rgba(0,0,0,.08);
-position:relative;
+padding:40px;
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+border-right:7px solid #0f766e;
+margin-bottom:30px;
 }
 
-.card::before{
-content:"";
-position:absolute;
-top:0;
-right:0;
-width:100%;
-height:5px;
-background:linear-gradient(90deg,#c9a227,#0f766e);
-}
-
-.card h2{
-color:#0f766e;
+.icon-circle{
+background:#0f766e;
+color:white;
+width:70px;
+height:70px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
 margin-bottom:15px;
-font-size:30px;
 }
 
-.card p{
-font-size:19px;
+.main-card h2{
+color:#0f766e;
+font-size:32px;
+margin-bottom:15px;
+}
+
+.main-card p{
+font-size:20px;
+}
+
+/* المميزات */
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+margin-bottom:30px;
+}
+
+.feature-card{
+background:white;
+border-radius:20px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.feature-icon{
+background:#e0f2f1;
+color:#0f766e;
+width:75px;
+height:75px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+margin:0 auto 15px;
+}
+
+.feature-card h3{
+font-size:24px;
+margin-bottom:10px;
+}
+
+.feature-card p{
+font-size:17px;
 }
 
 /* التواصل */
+.contact-card{
+background:white;
+border-radius:20px;
+padding:35px;
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+border-right:7px solid #0f766e;
+}
+
+.contact-card h2{
+color:#0f766e;
+margin-bottom:20px;
+font-size:30px;
+}
+
 .contact-box{
 background:#f8fafc;
 padding:20px;
 border-radius:15px;
-margin-top:15px;
 border-right:5px solid #0f766e;
 }
 
 .contact-box a{
+text-decoration:none;
 color:#0f766e;
 font-size:20px;
 font-weight:bold;
-text-decoration:none;
 }
 
 /* زر AI */
@@ -201,6 +289,7 @@ border-radius:12px;
 
 .bot{
 background:#f1f5f9;
+color:#0b1f33;
 }
 
 .user{
@@ -229,25 +318,57 @@ color:white;
 border-radius:10px;
 cursor:pointer;
 }
+
+/* الفوتر */
+footer{
+background:#061b33;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:60px;
+}
+
+@media(max-width:900px){
+.features{
+grid-template-columns:1fr;
+}
+
+.main-nav{
+gap:20px;
+flex-wrap:wrap;
+}
+
+.hero h1{
+font-size:35px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.chat-box{
+width:90%;
+left:5%;
+}
+}
 </style>
 </head>
 
 <body>
 
 <div class="toolbar">
-<button onclick="downloadPDF()">PDF</button>
+<button onclick="changeFontSize(1)">A+</button>
+<button onclick="changeFontSize(-1)">A-</button>
 <button onclick="toggleTheme()">☀ / 🌙</button>
-<button onclick="toggleLanguage()">AR / EN</button>
-<button onclick="changeFontSize(-1)">-A</button>
-<button onclick="changeFontSize(1)">+A</button>
+<button onclick="downloadPDF()">PDF</button>
 </div>
 
-<header>
-<h1 id="mainTitle">عن المشروع</h1>
-<p id="mainDesc">معلومات تفصيلية عن مشروع قاموس الأمن السيبراني</p>
+<header class="hero">
+<h1>عن المشروع</h1>
+<p>معلومات تفصيلية عن مشروع قاموس الأمن السيبراني</p>
 </header>
 
-<nav>
+<nav class="main-nav">
 <a href="index.html">الرئيسية</a>
 <a href="terms.html">المصطلحات</a>
 <a href="about.html">عن المشروع</a>
@@ -255,35 +376,38 @@ cursor:pointer;
 
 <div class="container">
 
-<div class="card">
+<section class="main-card">
+<div class="icon-circle">💡</div>
 <h2>فكرة المشروع</h2>
 <p>
-منصة إلكترونية تفاعلية متخصصة في شرح مصطلحات الأمن السيبراني باللغة العربية بطريقة مبسطة، مع ترجمة دقيقة وأمثلة عملية تساعد على فهم المصطلحات التقنية بسهولة.
+منصة إلكترونية تفاعلية متخصصة في شرح مصطلحات الأمن السيبراني باللغة العربية بطريقة مبسطة،
+مع ترجمة دقيقة وأمثلة عملية تساعد المستخدم على فهم المفاهيم التقنية بسهولة.
 </p>
+</section>
+
+<section class="features">
+
+<div class="feature-card">
+<div class="feature-icon">🌐</div>
+<h3>دعم لغوي</h3>
+<p>يدعم العربية والإنجليزية لتسهيل البحث والتعلم.</p>
 </div>
 
-<div class="card">
-<h2>هدف المشروع</h2>
-<p>
-رفع مستوى الوعي بالأمن السيبراني وتسهيل فهم المصطلحات التقنية للمبتدئين والطلاب والمهتمين بالمجال.
-</p>
+<div class="feature-card">
+<div class="feature-icon">📖</div>
+<h3>شرح مبسط</h3>
+<p>شرح واضح ومبسط للمصطلحات مع أمثلة عملية.</p>
 </div>
 
-<div class="card">
-<h2>أهمية المشروع</h2>
-<p>
-يساعد المشروع في كسر حاجز اللغة وتسهيل تعلم الأمن السيبراني باللغة العربية مع حلول عملية للحماية من المخاطر الرقمية.
-</p>
+<div class="feature-card">
+<div class="feature-icon">🛡️</div>
+<h3>حماية وتوعية</h3>
+<p>نصائح عملية للحماية من التهديدات الإلكترونية.</p>
 </div>
 
-<div class="card">
-<h2>المساعد الذكي</h2>
-<p>
-مساعد ذكي مدمج داخل الموقع للإجابة عن الأسئلة وشرح المصطلحات وتقديم نصائح وحلول أمنية بشكل فوري.
-</p>
-</div>
+</section>
 
-<div class="card">
+<section class="contact-card">
 <h2>طرق التواصل</h2>
 
 <div class="contact-box">
@@ -293,7 +417,7 @@ buthgf2020@gmail.com
 </a>
 </div>
 
-</div>
+</section>
 
 </div>
 
@@ -306,7 +430,7 @@ buthgf2020@gmail.com
 <button class="chat-close" onclick="toggleChat()">×</button>
 </div>
 
-<div class="chat-messages" id="chatMessages">
+<div id="chatMessages" class="chat-messages">
 <div class="message bot">
 مرحباً بك 👋
 اسأليني عن المشروع أو عن أي مصطلح.
@@ -320,9 +444,18 @@ buthgf2020@gmail.com
 
 </div>
 
+<footer>
+<p>مشروع تخرج - قاموس الأمن السيبراني 🛡️</p>
+<p>جميع الحقوق محفوظة © 2024</p>
+</footer>
+
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
 let fontSize=16;
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
 
 function toggleChat(){
 const box=document.getElementById("chatBox");
@@ -346,6 +479,7 @@ if(!q)return;
 
 addMessage(q,"user");
 input.value="";
+addMessage("جاري التفكير...","bot");
 
 try{
 const res=await fetch(WEBHOOK_URL,{
@@ -355,29 +489,29 @@ body:JSON.stringify({question:q})
 });
 
 const answer=await res.text();
-addMessage(answer,"bot");
+document.getElementById("chatMessages").lastChild.remove();
+addMessage(answer || "لم يصل رد من المساعد.","bot");
 
 }catch(error){
+document.getElementById("chatMessages").lastChild.remove();
 addMessage("حدث خطأ في الاتصال بالمساعد","bot");
 }
 }
 
-function toggleTheme(){
-document.body.classList.toggle("dark");
-}
-
 function changeFontSize(v){
 fontSize+=v;
+if(fontSize<13)fontSize=13;
+if(fontSize>26)fontSize=26;
 document.body.style.fontSize=fontSize+"px";
-}
-
-function toggleLanguage(){
-alert("ميزة تغيير اللغة جاهزة ويمكن تطوير النصوص لاحقاً");
 }
 
 function downloadPDF(){
 window.print();
 }
+
+document.getElementById("userInput").addEventListener("keydown",function(e){
+if(e.key==="Enter")sendMessage();
+});
 </script>
 
 </body>

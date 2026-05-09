@@ -10,68 +10,119 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Tahoma,Arial,sans-serif
+font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
 background:#f4f8fb;
 color:#0b1f33;
-line-height:2
+line-height:2;
+}
+
+/* الوضع الليلي */
+body.dark{
+background:#0b1f33;
+color:white;
+}
+
+body.dark .main-nav,
+body.dark .term-card,
+body.dark .chat-box{
+background:#102a43;
+color:white;
+}
+
+body.dark .main-nav a,
+body.dark .term-card p{
+color:white;
+}
+
+body.dark .search-box input,
+body.dark .chat-input input{
+background:#1e3a5f;
+color:white;
+border-color:#334155;
+}
+
+body.dark footer{
+background:#06111f;
+}
+
+/* الأدوات */
+.toolbar{
+position:fixed;
+top:20px;
+left:20px;
+display:flex;
+gap:10px;
+z-index:1000;
+}
+
+.toolbar button{
+background:white;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
 
 /* الهيدر */
-header{
+.hero{
 background:
-linear-gradient(rgba(4,28,54,.88),rgba(4,28,54,.88)),
+linear-gradient(rgba(3,25,48,.9),rgba(3,25,48,.9)),
 url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
 background-size:cover;
 background-position:center;
 color:white;
 text-align:center;
-padding:120px 20px 95px;
-border-bottom:6px solid #c9a227
+padding:110px 20px;
+border-bottom:5px solid #c9a227;
 }
 
-header h1{
-font-size:56px;
-font-weight:bold;
-margin-bottom:10px
+.hero h1{
+font-size:50px;
+margin-bottom:15px;
 }
 
-header p{
-font-size:24px;
-color:#f1f5f9
+.hero p{
+font-size:22px;
 }
 
 /* القائمة */
-nav{
+.main-nav{
 background:white;
+display:flex;
+justify-content:center;
+gap:90px;
 padding:22px;
-text-align:center;
-border-bottom:1px solid #dbe3ea;
-box-shadow:0 6px 18px rgba(15,23,42,.08)
+box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
-nav a{
-color:#0b1f33;
+.main-nav a{
 text-decoration:none;
-margin:0 40px;
+color:#0b1f33;
+font-size:20px;
 font-weight:bold;
-font-size:20px
+}
+
+.main-nav a:hover{
+color:#0f766e;
 }
 
 /* المحتوى */
 .container{
-width:82%;
-max-width:1250px;
-margin:55px auto
+width:85%;
+max-width:1200px;
+margin:50px auto;
 }
 
 /* البحث */
 .search-box{
 display:flex;
-gap:18px;
-margin-bottom:35px
+gap:15px;
+margin-bottom:30px;
 }
 
 .search-box input{
@@ -79,64 +130,51 @@ flex:1;
 padding:18px;
 border:1px solid #cbd5e1;
 border-radius:14px;
-font-size:20px;
-text-align:right
+font-size:18px;
 }
 
 .search-box button{
 background:#0f766e;
 color:white;
 border:none;
-padding:18px 35px;
+padding:18px 30px;
 border-radius:14px;
 cursor:pointer;
 font-size:18px;
-font-weight:bold
+font-weight:bold;
 }
 
 /* شبكة المصطلحات */
 .terms-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-gap:25px
+grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+gap:25px;
 }
 
 /* الكروت */
 .term-card{
 background:white;
+border-radius:20px;
 padding:30px;
-border-radius:22px;
-box-shadow:0 18px 40px rgba(15,23,42,.12);
-border:1px solid #e5e7eb;
-position:relative;
-overflow:hidden
-}
-
-.term-card::before{
-content:"";
-position:absolute;
-top:0;
-right:0;
-width:100%;
-height:6px;
-background:linear-gradient(90deg,#c9a227,#0f766e)
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+border-right:7px solid #0f766e;
 }
 
 .term-card h2{
 color:#0f766e;
 font-size:28px;
-margin-bottom:10px
+margin-bottom:10px;
 }
 
 .term-card h3{
 color:#c9a227;
-font-size:23px;
-margin-bottom:15px
+font-size:22px;
+margin-bottom:15px;
 }
 
 .term-card p{
+font-size:17px;
 margin-bottom:10px;
-font-size:18px
 }
 
 /* الوسوم */
@@ -149,7 +187,7 @@ border-radius:20px;
 font-size:14px;
 font-weight:bold;
 margin-top:8px;
-margin-left:5px
+margin-left:5px;
 }
 
 /* زر الصوت */
@@ -157,20 +195,20 @@ margin-left:5px
 background:#0f766e;
 color:white;
 border:none;
-padding:6px 12px;
+padding:6px 10px;
 border-radius:10px;
 cursor:pointer;
 font-size:13px;
-margin-right:6px
+margin-right:5px;
 }
 
 /* زر AI */
 .ai-button{
 position:fixed;
-bottom:55px;
-left:45px;
-width:95px;
-height:95px;
+bottom:40px;
+left:40px;
+width:85px;
+height:85px;
 border:none;
 border-radius:50%;
 background:#0f766e;
@@ -179,23 +217,22 @@ font-size:28px;
 font-weight:bold;
 cursor:pointer;
 z-index:999;
-box-shadow:0 15px 30px rgba(15,23,42,.25)
 }
 
 /* نافذة AI */
 .chat-box{
 position:fixed;
-bottom:160px;
-left:45px;
+bottom:140px;
+left:40px;
 width:390px;
 height:530px;
 background:white;
-border-radius:22px;
+border-radius:20px;
 display:none;
 flex-direction:column;
 overflow:hidden;
-box-shadow:0 20px 45px rgba(15,23,42,.18);
-z-index:999
+box-shadow:0 20px 45px rgba(0,0,0,.18);
+z-index:999;
 }
 
 .chat-header{
@@ -204,8 +241,7 @@ color:white;
 padding:18px;
 text-align:center;
 font-weight:bold;
-border-bottom:4px solid #c9a227;
-position:relative
+position:relative;
 }
 
 .chat-close{
@@ -217,73 +253,103 @@ background:none;
 border:none;
 color:white;
 font-size:30px;
-cursor:pointer
+cursor:pointer;
 }
 
 .chat-messages{
 flex:1;
 padding:15px;
-overflow-y:auto
+overflow-y:auto;
 }
 
 .message{
 padding:12px;
 margin:10px 0;
-border-radius:14px
+border-radius:12px;
 }
 
 .bot{
-background:#f1f5f9
+background:#f1f5f9;
+color:#0b1f33;
 }
 
 .user{
 background:#0f766e;
-color:white
+color:white;
 }
 
 .chat-input{
 display:flex;
 padding:10px;
 gap:10px;
-background:#f8fafc
 }
 
 .chat-input input{
 flex:1;
 padding:12px;
 border:1px solid #ccc;
-border-radius:10px
+border-radius:10px;
 }
 
 .chat-input button{
-padding:12px 18px;
+padding:12px;
+border:none;
 background:#0f766e;
 color:white;
-border:none;
 border-radius:10px;
-cursor:pointer
+cursor:pointer;
 }
 
-@media(max-width:700px){
-header h1{font-size:36px}
-header p{font-size:18px}
-nav a{display:inline-block;margin:8px 15px}
-.container{width:92%}
-.search-box{flex-direction:column}
-.search-box button,.search-box input{width:100%}
-.chat-box{width:90%;left:5%}
+/* الفوتر */
+footer{
+background:#061b33;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:60px;
+}
+
+@media(max-width:900px){
+.main-nav{
+gap:20px;
+flex-wrap:wrap;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+.hero h1{
+font-size:35px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.chat-box{
+width:90%;
+left:5%;
+}
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<div class="toolbar">
+<button onclick="changeFontSize(1)">A+</button>
+<button onclick="changeFontSize(-1)">A-</button>
+<button onclick="toggleTheme()">☀ / 🌙</button>
+<button onclick="downloadPDF()">PDF</button>
+</div>
+
+<header class="hero">
 <h1>المصطلحات</h1>
-<p>أهم مصطلحات الأمن السيبراني بطريقة مبسطة</p>
+<p>استعرض أهم مصطلحات الأمن السيبراني بطريقة مبسطة</p>
 </header>
 
-<nav>
+<nav class="main-nav">
 <a href="index.html">الرئيسية</a>
 <a href="terms.html">المصطلحات</a>
 <a href="about.html">عن المشروع</a>
@@ -307,7 +373,7 @@ nav a{display:inline-block;margin:8px 15px}
 <div class="chat-box" id="chatBox">
 
 <div class="chat-header">
-المساعد الذكي للأمن السيبراني
+المساعد الذكي
 <button class="chat-close" onclick="toggleChat()">×</button>
 </div>
 
@@ -324,6 +390,11 @@ nav a{display:inline-block;margin:8px 15px}
 </div>
 
 </div>
+
+<footer>
+<p>مشروع تخرج - قاموس الأمن السيبراني 🛡️</p>
+<p>جميع الحقوق محفوظة © 2024</p>
+</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -356,8 +427,6 @@ window.speechSynthesis.speak(speech);
 window.speakText=speakText;
 
 async function loadTerms(){
-const container=document.getElementById("termsContainer");
-
 try{
 const querySnapshot=await getDocs(collection(db,"terms"));
 allTerms=[];
@@ -380,7 +449,7 @@ displayTerms(allTerms);
 
 }catch(error){
 console.error(error);
-container.innerHTML="<p>فشل تحميل المصطلحات</p>";
+document.getElementById("termsContainer").innerHTML="<p>فشل تحميل المصطلحات</p>";
 }
 }
 
@@ -422,7 +491,7 @@ ${term.arabic_term}
 window.searchTerms=function(){
 const text=document.getElementById("searchInput").value.toLowerCase().trim();
 
-const filtered=allTerms.filter(term=>
+const filtered=allTerms.filter(term =>
 term.english_term.toLowerCase().includes(text) ||
 term.arabic_term.includes(text)
 );
@@ -435,6 +504,11 @@ loadTerms();
 
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
+let fontSize=16;
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
 
 function toggleChat(){
 const box=document.getElementById("chatBox");
@@ -458,6 +532,7 @@ if(!q)return;
 
 addMessage(q,"user");
 input.value="";
+addMessage("جاري التفكير...","bot");
 
 try{
 const res=await fetch(WEBHOOK_URL,{
@@ -467,12 +542,29 @@ body:JSON.stringify({question:q})
 });
 
 const answer=await res.text();
-addMessage(answer,"bot");
+document.getElementById("chatMessages").lastChild.remove();
+addMessage(answer || "لم يصل رد من المساعد.","bot");
 
 }catch(error){
+document.getElementById("chatMessages").lastChild.remove();
 addMessage("حدث خطأ في الاتصال بالمساعد","bot");
 }
 }
+
+function changeFontSize(v){
+fontSize+=v;
+if(fontSize<13)fontSize=13;
+if(fontSize>26)fontSize=26;
+document.body.style.fontSize=fontSize+"px";
+}
+
+function downloadPDF(){
+window.print();
+}
+
+document.getElementById("userInput").addEventListener("keydown",function(e){
+if(e.key==="Enter")sendMessage();
+});
 </script>
 
 </body>

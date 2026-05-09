@@ -7,320 +7,317 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Tahoma,Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
-  background:#f4f8fb;
-  color:#0b1f33;
-  line-height:2;
-}
-
-/* الشريط العلوي */
-.toolbar{
-  position:absolute;
-  top:22px;
-  left:22px;
-  display:flex;
-  gap:10px;
-  z-index:1000;
-}
-
-.toolbar button{
-  background:white;
-  color:#0b1f33;
-  border:1px solid #d1d5db;
-  padding:10px 16px;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-  box-shadow:0 4px 10px rgba(0,0,0,.12);
-}
-
-/* الهيدر */
-header{
-  background:
-  linear-gradient(rgba(4,28,54,.88),rgba(4,28,54,.88)),
-  url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-  background-position:center;
-  color:white;
-  text-align:center;
-  padding:120px 20px 95px;
-  border-bottom:6px solid #c9a227;
-}
-
-header h1{
-  font-size:56px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-header p{
-  font-size:24px;
-  color:#f1f5f9;
-}
-
-/* القائمة */
-nav{
-  background:white;
-  padding:22px;
-  text-align:center;
-  border-bottom:1px solid #dbe3ea;
-  box-shadow:0 6px 18px rgba(15,23,42,.08);
-}
-
-nav a{
-  color:#0b1f33;
-  text-decoration:none;
-  margin:0 45px;
-  font-weight:bold;
-  font-size:20px;
-}
-
-nav a:hover{
-  color:#0f766e;
-}
-
-/* المحتوى */
-.container{
-  width:82%;
-  max-width:1250px;
-  margin:55px auto;
-}
-
-.card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:22px;
-  padding:48px;
-  box-shadow:0 18px 40px rgba(15,23,42,.12);
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  right:0;
-  width:100%;
-  height:6px;
-  background:linear-gradient(90deg,#c9a227,#0f766e);
-}
-
-.card h2{
-  color:#0f766e;
-  font-size:34px;
-  margin-bottom:18px;
-}
-
-.card p{
-  font-size:21px;
-  color:#1f2937;
-  margin-bottom:25px;
-}
-
-/* البحث */
-.search-box{
-  display:flex;
-  gap:18px;
-  margin-top:30px;
-  align-items:center;
-}
-
-.search-box input{
-  flex:1;
-  padding:18px;
-  border:1px solid #cbd5e1;
-  border-radius:14px;
-  font-size:20px;
-  text-align:right;
-}
-
-.search-box button{
-  background:#0f766e;
-  color:white;
-  border:none;
-  padding:18px 35px;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:19px;
-  font-weight:bold;
-}
-
-.search-box button:hover{
-  background:#115e59;
-}
-
-.result{
-  display:none;
-  margin-top:25px;
-  padding:22px;
-  border-radius:16px;
-  background:#f8fafc;
-  border-right:6px solid #0f766e;
-  font-size:18px;
-}
-
-/* زر النطق */
-.speak-btn{
-  background:#0f766e;
-  color:white;
-  border:none;
-  border-radius:10px;
-  padding:6px 12px;
-  cursor:pointer;
-  margin-right:6px;
-}
-
-/* زر AI */
-.ai-button{
-  position:fixed;
-  bottom:55px;
-  left:45px;
-  width:95px;
-  height:95px;
-  border:none;
-  border-radius:50%;
-  background:#0f766e;
-  color:white;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
-  z-index:999;
-  box-shadow:0 15px 30px rgba(15,23,42,.25);
-}
-
-/* نافذة AI */
-.chat-box{
-  position:fixed;
-  bottom:160px;
-  left:45px;
-  width:390px;
-  height:530px;
-  background:white;
-  color:#0b1f33;
-  border:1px solid #d1d5db;
-  border-radius:22px;
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  z-index:999;
-  box-shadow:0 20px 45px rgba(15,23,42,.18);
-}
-
-.chat-header{
-  background:#0b1f33;
-  color:white;
-  padding:18px;
-  text-align:center;
-  font-weight:bold;
-  border-bottom:4px solid #c9a227;
-  position:relative;
-}
-
-.chat-close{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  color:white;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.chat-messages{
-  flex:1;
-  padding:15px;
-  overflow-y:auto;
-}
-
-.message{
-  padding:12px;
-  margin:10px 0;
-  border-radius:14px;
-  white-space:pre-wrap;
-}
-
-.bot{
-  background:#f1f5f9;
-  color:#0b1f33;
-}
-
-.user{
-  background:#0f766e;
-  color:white;
-}
-
-.quick-buttons,
-.chat-input{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  background:#f8fafc;
-}
-
-.quick-buttons button{
-  flex:1;
-  background:#e2e8f0;
-  color:#0b1f33;
-  border:none;
-  border-radius:10px;
-  padding:10px;
-  cursor:pointer;
-}
-
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
-}
-
-.chat-input button{
-  background:#0f766e;
-  color:white;
-  border:none;
-  border-radius:10px;
-  padding:12px 16px;
-  cursor:pointer;
+background:#f4f8fb;
+color:#0b1f33;
+line-height:2;
 }
 
 /* الوضع الليلي */
 body.dark{
-  background:#0b1f33;
-  color:#f8fafc;
+background:#0b1f33;
+color:white;
 }
 
-body.dark nav,
-body.dark .card{
-  background:#102a43;
-  color:white;
-  border-color:#1e3a5f;
+body.dark .main-nav,
+body.dark .main-card,
+body.dark .chat-box{
+background:#102a43;
+color:white;
 }
 
-body.dark nav a,
-body.dark .card p{
-  color:white;
+body.dark .main-nav a,
+body.dark .main-card p{
+color:white;
 }
 
-/* الجوال */
-@media(max-width:700px){
-  header h1{font-size:36px}
-  header p{font-size:18px}
-  nav a{display:inline-block;margin:8px 15px}
-  .container{width:92%}
-  .card{padding:28px}
-  .search-box{flex-direction:column}
-  .search-box button,.search-box input{width:100%}
-  .chat-box{width:90%;left:5%}
+body.dark .search-box input,
+body.dark .chat-input input{
+background:#1e3a5f;
+color:white;
+border-color:#334155;
+}
+
+body.dark .result{
+background:#1e3a5f;
+color:white;
+}
+
+body.dark footer{
+background:#06111f;
+}
+
+/* الأدوات */
+.toolbar{
+position:fixed;
+top:20px;
+left:20px;
+display:flex;
+gap:10px;
+z-index:1000;
+}
+
+.toolbar button{
+background:white;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+/* الهيدر */
+.hero{
+background:
+linear-gradient(rgba(3,25,48,.9),rgba(3,25,48,.9)),
+url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+color:white;
+text-align:center;
+padding:110px 20px;
+border-bottom:5px solid #c9a227;
+}
+
+.hero h1{
+font-size:55px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:24px;
+}
+
+/* القائمة */
+.main-nav{
+background:white;
+display:flex;
+justify-content:center;
+gap:90px;
+padding:22px;
+box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.main-nav a{
+text-decoration:none;
+color:#0b1f33;
+font-size:20px;
+font-weight:bold;
+}
+
+.main-nav a:hover{
+color:#0f766e;
+}
+
+/* المحتوى */
+.container{
+width:85%;
+max-width:1200px;
+margin:50px auto;
+}
+
+/* الكارد الرئيسي */
+.main-card{
+background:white;
+border-radius:20px;
+padding:40px;
+box-shadow:0 10px 28px rgba(0,0,0,.08);
+border-right:7px solid #0f766e;
+}
+
+.main-card h2{
+color:#0f766e;
+font-size:35px;
+margin-bottom:15px;
+}
+
+.main-card p{
+font-size:20px;
+margin-bottom:20px;
+}
+
+/* البحث */
+.search-box{
+display:flex;
+gap:15px;
+margin-top:25px;
+}
+
+.search-box input{
+flex:1;
+padding:18px;
+border:1px solid #cbd5e1;
+border-radius:14px;
+font-size:18px;
+}
+
+.search-box button{
+background:#0f766e;
+color:white;
+border:none;
+padding:18px 30px;
+border-radius:14px;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+}
+
+.result{
+display:none;
+margin-top:25px;
+padding:20px;
+border-radius:16px;
+background:#f8fafc;
+border-right:6px solid #0f766e;
+}
+
+/* زر النطق */
+.speak-btn{
+background:#0f766e;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:10px;
+cursor:pointer;
+margin-right:5px;
+}
+
+/* زر AI */
+.ai-button{
+position:fixed;
+bottom:40px;
+left:40px;
+width:85px;
+height:85px;
+border:none;
+border-radius:50%;
+background:#0f766e;
+color:white;
+font-size:28px;
+font-weight:bold;
+cursor:pointer;
+z-index:999;
+}
+
+/* نافذة AI */
+.chat-box{
+position:fixed;
+bottom:140px;
+left:40px;
+width:390px;
+height:530px;
+background:white;
+border-radius:20px;
+display:none;
+flex-direction:column;
+overflow:hidden;
+box-shadow:0 20px 45px rgba(0,0,0,.18);
+z-index:999;
+}
+
+.chat-header{
+background:#0b1f33;
+color:white;
+padding:18px;
+text-align:center;
+font-weight:bold;
+position:relative;
+}
+
+.chat-close{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+background:none;
+border:none;
+color:white;
+font-size:30px;
+cursor:pointer;
+}
+
+.chat-messages{
+flex:1;
+padding:15px;
+overflow-y:auto;
+}
+
+.message{
+padding:12px;
+margin:10px 0;
+border-radius:12px;
+}
+
+.bot{
+background:#f1f5f9;
+color:#0b1f33;
+}
+
+.user{
+background:#0f766e;
+color:white;
+}
+
+.chat-input{
+display:flex;
+padding:10px;
+gap:10px;
+}
+
+.chat-input input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+.chat-input button{
+padding:12px;
+border:none;
+background:#0f766e;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* الفوتر */
+footer{
+background:#061b33;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:60px;
+}
+
+@media(max-width:800px){
+.main-nav{
+gap:20px;
+flex-wrap:wrap;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+.hero h1{
+font-size:35px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.chat-box{
+width:90%;
+left:5%;
+}
 }
 </style>
 </head>
@@ -328,27 +325,32 @@ body.dark .card p{
 <body>
 
 <div class="toolbar">
-<button onclick="downloadPDF()">PDF</button>
+<button onclick="changeFontSize(1)">A+</button>
+<button onclick="changeFontSize(-1)">A-</button>
 <button onclick="toggleTheme()">☀ / 🌙</button>
-<button onclick="changeFontSize(-1)">-A</button>
-<button onclick="changeFontSize(1)">+A</button>
+<button onclick="downloadPDF()">PDF</button>
 </div>
 
-<header>
+<header class="hero">
 <h1>قاموس الأمن السيبراني</h1>
 <p>قاموس تفاعلي ثنائي اللغة مع مساعد ذكي</p>
 </header>
 
-<nav>
+<nav class="main-nav">
 <a href="index.html">الرئيسية</a>
 <a href="terms.html">المصطلحات</a>
 <a href="about.html">عن المشروع</a>
 </nav>
 
 <div class="container">
-<div class="card">
+
+<section class="main-card">
 <h2>مرحباً بك</h2>
-<p>منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة، مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.</p>
+
+<p>
+منصة تعليمية تساعد المستخدم العربي على فهم مصطلحات الأمن السيبراني بطريقة مبسطة،
+مع أمثلة عملية ومساعد ذكي للإجابة عن الأسئلة.
+</p>
 
 <div class="search-box">
 <input type="text" id="searchInput" placeholder="اكتبي المصطلح هنا">
@@ -356,33 +358,37 @@ body.dark .card p{
 </div>
 
 <div id="result" class="result"></div>
-</div>
+</section>
+
 </div>
 
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
+
 <div class="chat-header">
-المساعد الذكي للأمن السيبراني
+المساعد الذكي
 <button class="chat-close" onclick="toggleChat()">×</button>
 </div>
 
-<div class="chat-messages" id="chatMessages">
-<div class="message bot">مرحباً بك 👋
-اكتب أي سؤال عن الأمن السيبراني وسأساعدك.</div>
+<div id="chatMessages" class="chat-messages">
+<div class="message bot">
+مرحباً بك 👋
+اسألني عن أي مصطلح.
 </div>
-
-<div class="quick-buttons">
-<button onclick="quickAsk('ما هو التصيد الاحتيالي؟')">التصيد</button>
-<button onclick="quickAsk('ما هو Malware؟')">Malware</button>
-<button onclick="quickAsk('كيف أتواصل مع الموقع؟')">تواصل</button>
 </div>
 
 <div class="chat-input">
 <button onclick="sendMessage()">إرسال</button>
 <input id="userInput" placeholder="اكتب سؤالك هنا...">
 </div>
+
 </div>
+
+<footer>
+<p>مشروع تخرج - قاموس الأمن السيبراني 🛡️</p>
+<p>جميع الحقوق محفوظة © 2024</p>
+</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -400,15 +406,15 @@ appId: "1:1033056123958:web:c5fa53180442ce770aac97"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let allTerms = [];
+let allTerms=[];
 
 async function loadTerms(){
 try{
-const querySnapshot = await getDocs(collection(db,"terms"));
-allTerms = [];
+const querySnapshot=await getDocs(collection(db,"terms"));
+allTerms=[];
 
 querySnapshot.forEach((doc)=>{
-const data = doc.data();
+const data=doc.data();
 
 allTerms.push({
 english_term:data.english_term || data.english || data.term_en || "",
@@ -422,40 +428,41 @@ solution_ar:data.solution_ar || data.solution || ""
 console.log("تم تحميل المصطلحات:", allTerms.length);
 
 }catch(error){
-console.error("Firebase Error:", error);
+console.error("Firebase Error:",error);
 }
 }
 
-window.searchTerm = function(){
-const input = document.getElementById("searchInput").value.trim().toLowerCase();
-const result = document.getElementById("result");
+window.searchTerm=function(){
+const input=document.getElementById("searchInput").value.trim().toLowerCase();
+const result=document.getElementById("result");
 
 if(!input){
-result.style.display = "block";
-result.innerHTML = "الرجاء كتابة مصطلح.";
+result.style.display="block";
+result.innerHTML="الرجاء كتابة مصطلح.";
 return;
 }
 
-const found = allTerms.find(term =>
+const found=allTerms.find(term =>
 term.english_term.toLowerCase().includes(input) ||
 term.arabic_term.includes(input)
 );
 
-result.style.display = "block";
+result.style.display="block";
 
 if(found){
-result.innerHTML = `
+result.innerHTML=`
 <h3>
 ${found.english_term} - ${found.arabic_term}
-<button class="speak-btn" onclick="speakTextFromPage('${found.english_term}','en-US')">🔊 EN</button>
-<button class="speak-btn" onclick="speakTextFromPage('${found.arabic_term}','ar-SA')">🔊 AR</button>
+<button class="speak-btn" onclick="speakText('${found.english_term}','en-US')">🔊</button>
+<button class="speak-btn" onclick="speakText('${found.arabic_term}','ar-SA')">🔊</button>
 </h3>
+
 <p><strong>التعريف:</strong> ${found.definition_ar || "غير متوفر"}</p>
 <p><strong>مثال:</strong> ${found.example_ar || "غير متوفر"}</p>
 <p><strong>طريقة الحماية:</strong> ${found.solution_ar || "غير متوفر"}</p>
 `;
 }else{
-result.innerHTML = "لم يتم العثور على المصطلح. تأكدي أن المصطلحات محملة في Firebase.";
+result.innerHTML="لم يتم العثور على المصطلح.";
 }
 };
 
@@ -466,14 +473,18 @@ loadTerms();
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
 let fontSize=16;
 
-function speakTextFromPage(text,lang){
+function speakText(text,lang){
 if(!text)return;
 window.speechSynthesis.cancel();
-const speech = new SpeechSynthesisUtterance(text);
-speech.lang = lang;
-speech.rate = 0.9;
-speech.pitch = 1;
+const speech=new SpeechSynthesisUtterance(text);
+speech.lang=lang;
+speech.rate=0.9;
+speech.pitch=1;
 window.speechSynthesis.speak(speech);
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
 }
 
 function toggleChat(){
@@ -490,14 +501,10 @@ chat.appendChild(msg);
 chat.scrollTop=chat.scrollHeight;
 }
 
-function quickAsk(q){
-document.getElementById("userInput").value=q;
-sendMessage();
-}
-
 async function sendMessage(){
 const input=document.getElementById("userInput");
 const q=input.value.trim();
+
 if(!q)return;
 
 addMessage(q,"user");
@@ -515,21 +522,17 @@ const answer=await res.text();
 document.getElementById("chatMessages").lastChild.remove();
 addMessage(answer || "لم يصل رد من المساعد.","bot");
 
-}catch(e){
+}catch(error){
 document.getElementById("chatMessages").lastChild.remove();
-addMessage("حدث خطأ في الاتصال بالمساعد.","bot");
+addMessage("حدث خطأ في الاتصال بالمساعد","bot");
 }
-}
-
-function toggleTheme(){
-document.body.classList.toggle("dark");
 }
 
 function changeFontSize(v){
-fontSize += v;
-if(fontSize < 13) fontSize = 13;
-if(fontSize > 26) fontSize = 26;
-document.body.style.fontSize = fontSize + "px";
+fontSize+=v;
+if(fontSize<13)fontSize=13;
+if(fontSize>26)fontSize=26;
+document.body.style.fontSize=fontSize+"px";
 }
 
 function downloadPDF(){
