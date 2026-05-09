@@ -6,123 +6,52 @@
 <title>المصطلحات</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Tahoma,Arial,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
+body{background:#f4f8fb;color:#0b1f33;line-height:2}
+body.dark{background:#0b1f33;color:white}
+body.dark .main-nav,body.dark .term-card,body.dark .chat-box{background:#102a43;color:white}
+body.dark .main-nav a,body.dark .term-card p{color:white}
+body.dark .search-box input,body.dark .chat-input input{background:#1e3a5f;color:white;border-color:#334155}
+body.dark footer{background:#06111f}
 
-body{
-background:#f4f8fb;
-color:#0b1f33;
-line-height:2;
-}
+.toolbar{position:fixed;top:20px;left:20px;display:flex;gap:10px;z-index:1000}
+.toolbar button{background:white;border:none;padding:10px 15px;border-radius:10px;cursor:pointer;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,.1)}
 
-/* الوضع الليلي */
-body.dark{
-background:#0b1f33;
-color:white;
-}
-
-body.dark .main-nav,
-body.dark .term-card,
-body.dark .chat-box{
-background:#102a43;
-color:white;
-}
-
-body.dark .main-nav a,
-body.dark .term-card p{
-color:white;
-}
-
-body.dark .search-box input,
-body.dark .chat-input input{
-background:#1e3a5f;
-color:white;
-border-color:#334155;
-}
-
-body.dark footer{
-background:#06111f;
-}
-
-/* الأدوات */
-.toolbar{
-position:fixed;
-top:20px;
-left:20px;
-display:flex;
-gap:10px;
-z-index:1000;
-}
-
-.toolbar button{
-background:white;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-box-shadow:0 4px 10px rgba(0,0,0,.1);
-}
-
-/* الهيدر */
 .hero{
-background:
-linear-gradient(rgba(3,25,48,.9),rgba(3,25,48,.9)),
-url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
-background-size:cover;
-background-position:center;
-color:white;
-text-align:center;
-padding:110px 20px;
-border-bottom:5px solid #c9a227;
+background:linear-gradient(rgba(3,25,48,.9),rgba(3,25,48,.9)),url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;background-position:center;color:white;text-align:center;padding:110px 20px;border-bottom:5px solid #c9a227
 }
+.hero h1{font-size:50px;margin-bottom:15px}
+.hero p{font-size:22px}
 
-.hero h1{
-font-size:50px;
-margin-bottom:15px;
-}
-
-.hero p{
-font-size:22px;
-}
-
-/* القائمة */
 .main-nav{
 background:white;
 display:flex;
 justify-content:center;
 gap:90px;
 padding:22px;
-box-shadow:0 5px 18px rgba(0,0,0,.08);
+box-shadow:0 5px 18px rgba(0,0,0,.08)
 }
 
 .main-nav a{
 text-decoration:none;
 color:#0b1f33;
 font-size:20px;
-font-weight:bold;
+font-weight:bold
 }
 
-.main-nav a:hover{
-color:#0f766e;
-}
+.main-nav a:hover{color:#0f766e}
 
-/* المحتوى */
 .container{
 width:85%;
 max-width:1200px;
-margin:50px auto;
+margin:50px auto
 }
 
-/* البحث */
 .search-box{
 display:flex;
 gap:15px;
-margin-bottom:30px;
+margin-bottom:30px
 }
 
 .search-box input{
@@ -130,7 +59,7 @@ flex:1;
 padding:18px;
 border:1px solid #cbd5e1;
 border-radius:14px;
-font-size:18px;
+font-size:18px
 }
 
 .search-box button{
@@ -141,43 +70,40 @@ padding:18px 30px;
 border-radius:14px;
 cursor:pointer;
 font-size:18px;
-font-weight:bold;
+font-weight:bold
 }
 
-/* شبكة المصطلحات */
 .terms-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-gap:25px;
+gap:25px
 }
 
-/* الكروت */
 .term-card{
 background:white;
 border-radius:20px;
 padding:30px;
 box-shadow:0 10px 28px rgba(0,0,0,.08);
-border-right:7px solid #0f766e;
+border-right:7px solid #0f766e
 }
 
 .term-card h2{
 color:#0f766e;
 font-size:28px;
-margin-bottom:10px;
+margin-bottom:10px
 }
 
 .term-card h3{
 color:#c9a227;
 font-size:22px;
-margin-bottom:15px;
+margin-bottom:15px
 }
 
 .term-card p{
 font-size:17px;
-margin-bottom:10px;
+margin-bottom:10px
 }
 
-/* الوسوم */
 .tag{
 display:inline-block;
 background:#e0f2f1;
@@ -187,10 +113,9 @@ border-radius:20px;
 font-size:14px;
 font-weight:bold;
 margin-top:8px;
-margin-left:5px;
+margin-left:5px
 }
 
-/* زر الصوت */
 .speak-btn{
 background:#0f766e;
 color:white;
@@ -199,10 +124,9 @@ padding:6px 10px;
 border-radius:10px;
 cursor:pointer;
 font-size:13px;
-margin-right:5px;
+margin-right:5px
 }
 
-/* زر AI */
 .ai-button{
 position:fixed;
 bottom:40px;
@@ -216,10 +140,9 @@ color:white;
 font-size:28px;
 font-weight:bold;
 cursor:pointer;
-z-index:999;
+z-index:999
 }
 
-/* نافذة AI */
 .chat-box{
 position:fixed;
 bottom:140px;
@@ -232,7 +155,7 @@ display:none;
 flex-direction:column;
 overflow:hidden;
 box-shadow:0 20px 45px rgba(0,0,0,.18);
-z-index:999;
+z-index:999
 }
 
 .chat-header{
@@ -241,7 +164,7 @@ color:white;
 padding:18px;
 text-align:center;
 font-weight:bold;
-position:relative;
+position:relative
 }
 
 .chat-close{
@@ -253,42 +176,42 @@ background:none;
 border:none;
 color:white;
 font-size:30px;
-cursor:pointer;
+cursor:pointer
 }
 
 .chat-messages{
 flex:1;
 padding:15px;
-overflow-y:auto;
+overflow-y:auto
 }
 
 .message{
 padding:12px;
 margin:10px 0;
-border-radius:12px;
+border-radius:12px
 }
 
 .bot{
 background:#f1f5f9;
-color:#0b1f33;
+color:#0b1f33
 }
 
 .user{
 background:#0f766e;
-color:white;
+color:white
 }
 
 .chat-input{
 display:flex;
 padding:10px;
-gap:10px;
+gap:10px
 }
 
 .chat-input input{
 flex:1;
 padding:12px;
 border:1px solid #ccc;
-border-radius:10px;
+border-radius:10px
 }
 
 .chat-input button{
@@ -297,40 +220,15 @@ border:none;
 background:#0f766e;
 color:white;
 border-radius:10px;
-cursor:pointer;
+cursor:pointer
 }
 
-/* الفوتر */
 footer{
 background:#061b33;
 color:white;
 text-align:center;
 padding:25px;
-margin-top:60px;
-}
-
-@media(max-width:900px){
-.main-nav{
-gap:20px;
-flex-wrap:wrap;
-}
-
-.search-box{
-flex-direction:column;
-}
-
-.hero h1{
-font-size:35px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-.chat-box{
-width:90%;
-left:5%;
-}
+margin-top:60px
 }
 </style>
 </head>
@@ -371,24 +269,20 @@ left:5%;
 <button class="ai-button" onclick="toggleChat()">AI</button>
 
 <div class="chat-box" id="chatBox">
-
 <div class="chat-header">
 المساعد الذكي
 <button class="chat-close" onclick="toggleChat()">×</button>
 </div>
 
 <div id="chatMessages" class="chat-messages">
-<div class="message bot">
-مرحباً بك 👋
-اسألني عن أي مصطلح.
-</div>
+<div class="message bot">مرحباً بك 👋
+اسألني عن أي مصطلح.</div>
 </div>
 
 <div class="chat-input">
 <button onclick="sendMessage()">إرسال</button>
 <input id="userInput" placeholder="اكتب سؤالك هنا...">
 </div>
-
 </div>
 
 <footer>
@@ -396,7 +290,7 @@ left:5%;
 <p>جميع الحقوق محفوظة © 2024</p>
 </footer>
 
-<script type="module"><script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -414,7 +308,6 @@ const db = getFirestore(app);
 
 let allTerms=[];
 
-/* النطق الصوتي */
 function speakText(text,lang="ar-SA"){
 if(!text)return;
 window.speechSynthesis.cancel();
@@ -424,25 +317,26 @@ speech.rate=0.9;
 speech.pitch=1;
 window.speechSynthesis.speak(speech);
 }
-
 window.speakText=speakText;
 
-/* ترجمة المستوى للعربي */
+/* ترجمة المستوى */
 function translateDifficulty(value){
 if(!value) return "مبتدئين";
 
-const level=value.toLowerCase().trim();
+const level=value.toString().toLowerCase().trim();
 
-if(level==="beginner") return "مبتدئين";
-if(level==="intermediate") return "متوسط";
-if(level==="advanced") return "متقدم";
+if(level==="beginner" || level==="beginners") return "مبتدئين";
+if(level==="intermediate" || level==="medium") return "متوسط";
+if(level==="advanced" || level==="hard") return "متقدم";
 
-return value;
+return "مبتدئين";
 }
 
-/* ترجمة نوع المصطلح للعربي */
+/* ترجمة نوع المصطلح */
 function translateCategory(value){
 if(!value) return "عام";
+
+const key=value.toString().toLowerCase().trim();
 
 const categories={
 "social engineering":"الهندسة الاجتماعية",
@@ -458,13 +352,24 @@ const categories={
 "privacy":"الخصوصية",
 "cryptography":"التشفير",
 "cyber attack":"هجمات سيبرانية",
+"cyber attacks":"هجمات سيبرانية",
+"threat":"تهديدات",
+"threats":"تهديدات",
+"attack":"هجمات",
+"attacks":"هجمات",
+"security concept":"مفهوم أمني",
+"security concepts":"مفاهيم أمنية",
+"protection":"الحماية",
+"risk":"المخاطر",
+"risks":"المخاطر",
+"vulnerability":"الثغرات",
+"vulnerabilities":"الثغرات",
 "general":"عام"
 };
 
-return categories[value.toLowerCase()] || value;
+return categories[key] || "عام";
 }
 
-/* تحميل المصطلحات */
 async function loadTerms(){
 try{
 const querySnapshot=await getDocs(collection(db,"terms"));
@@ -479,11 +384,8 @@ arabic_term:data.arabic_term || "",
 definition_ar:data.definition_ar || "",
 example_ar:data.example_ar || "",
 solution_ar:data.solution_ar || "",
-
-/* هنا التعديل فقط */
 category:translateCategory(data.category),
 difficulty_level:translateDifficulty(data.difficulty_level)
-
 });
 });
 
@@ -495,7 +397,6 @@ document.getElementById("termsContainer").innerHTML="<p>فشل تحميل الم
 }
 }
 
-/* عرض المصطلحات */
 function displayTerms(terms){
 const container=document.getElementById("termsContainer");
 container.innerHTML="";
@@ -508,7 +409,6 @@ return;
 terms.forEach(term=>{
 container.innerHTML+=`
 <div class="term-card">
-
 <h2>
 ${term.english_term}
 <button class="speak-btn" onclick="speakText('${term.english_term}','en-US')">🔊</button>
@@ -519,19 +419,17 @@ ${term.arabic_term}
 <button class="speak-btn" onclick="speakText('${term.arabic_term}','ar-SA')">🔊</button>
 </h3>
 
-<p><strong>التعريف:</strong> ${term.definition_ar}</p>
-<p><strong>مثال:</strong> ${term.example_ar}</p>
-<p><strong>طريقة الحماية:</strong> ${term.solution_ar}</p>
+<p><strong>التعريف:</strong> ${term.definition_ar || "غير متوفر"}</p>
+<p><strong>مثال:</strong> ${term.example_ar || "غير متوفر"}</p>
+<p><strong>طريقة الحماية:</strong> ${term.solution_ar || "غير متوفر"}</p>
 
 <span class="tag">نوع المصطلح: ${term.category}</span>
 <span class="tag">المستوى: ${term.difficulty_level}</span>
-
 </div>
 `;
 });
 }
 
-/* البحث */
 window.searchTerms=function(){
 const text=document.getElementById("searchInput").value.toLowerCase().trim();
 
@@ -542,9 +440,6 @@ term.arabic_term.includes(text)
 
 displayTerms(filtered);
 }
-
-loadTerms();
-</script>
 
 loadTerms();
 </script>
