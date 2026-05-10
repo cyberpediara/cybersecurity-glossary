@@ -327,30 +327,6 @@ text-align:center;
 padding:25px;
 margin-top:60px;
 }
-
-@media(max-width:900px){
-.features{
-grid-template-columns:1fr;
-}
-
-.main-nav{
-gap:20px;
-flex-wrap:wrap;
-}
-
-.hero h1{
-font-size:35px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-.chat-box{
-width:90%;
-left:5%;
-}
-}
 </style>
 </head>
 
@@ -451,7 +427,6 @@ buthgf2020@gmail.com
 
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
-let fontSize=16;
 
 function toggleTheme(){
 document.body.classList.toggle("dark");
@@ -498,11 +473,23 @@ addMessage("حدث خطأ في الاتصال بالمساعد","bot");
 }
 }
 
-function changeFontSize(v){
-fontSize+=v;
-if(fontSize<13)fontSize=13;
-if(fontSize>26)fontSize=26;
-document.body.style.fontSize=fontSize+"px";
+/* التعديل هنا فقط */
+function changeFontSize(change){
+const elements=document.querySelectorAll(
+'p, h1, h2, h3, h4, h5, h6, a, button, input, span, div'
+);
+
+elements.forEach(element=>{
+const style=window.getComputedStyle(element);
+const currentSize=parseFloat(style.fontSize);
+
+let newSize=currentSize+change;
+
+if(newSize<12)newSize=12;
+if(newSize>40)newSize=40;
+
+element.style.fontSize=newSize+"px";
+});
 }
 
 function downloadPDF(){

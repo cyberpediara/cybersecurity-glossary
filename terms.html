@@ -254,7 +254,6 @@ margin-top:60px
 </nav>
 
 <div class="container">
-
 <div class="search-box">
 <input id="searchInput" placeholder="ابحث عن مصطلح">
 <button onclick="searchTerms()">بحث</button>
@@ -263,7 +262,6 @@ margin-top:60px
 <div id="termsContainer" class="terms-grid">
 <p>جاري تحميل المصطلحات...</p>
 </div>
-
 </div>
 
 <button class="ai-button" onclick="toggleChat()">AI</button>
@@ -319,7 +317,6 @@ window.speechSynthesis.speak(speech);
 }
 window.speakText=speakText;
 
-/* ترجمة المستوى */
 function translateDifficulty(value){
 if(!value) return "مبتدئين";
 
@@ -332,7 +329,6 @@ if(level==="advanced" || level==="hard") return "متقدم";
 return "مبتدئين";
 }
 
-/* ترجمة نوع المصطلح */
 function translateCategory(value){
 if(!value) return "عام";
 
@@ -446,7 +442,6 @@ loadTerms();
 
 <script>
 const WEBHOOK_URL="https://buth.app.n8n.cloud/webhook/ask-ai";
-let fontSize=16;
 
 function toggleTheme(){
 document.body.classList.toggle("dark");
@@ -493,11 +488,23 @@ addMessage("حدث خطأ في الاتصال بالمساعد","bot");
 }
 }
 
-function changeFontSize(v){
-fontSize+=v;
-if(fontSize<13)fontSize=13;
-if(fontSize>26)fontSize=26;
-document.body.style.fontSize=fontSize+"px";
+/* التعديل هنا فقط */
+function changeFontSize(change){
+const elements=document.querySelectorAll(
+'p, h1, h2, h3, h4, h5, h6, a, button, input, span, div'
+);
+
+elements.forEach(element=>{
+const style=window.getComputedStyle(element);
+const currentSize=parseFloat(style.fontSize);
+
+let newSize=currentSize+change;
+
+if(newSize<12)newSize=12;
+if(newSize>40)newSize=40;
+
+element.style.fontSize=newSize+"px";
+});
 }
 
 function downloadPDF(){
